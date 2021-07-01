@@ -19,6 +19,8 @@ public class MatchedTable {
 
     private String phone;
 
+    private String managerName;
+
     //артикул
     private String vendorCode;
 
