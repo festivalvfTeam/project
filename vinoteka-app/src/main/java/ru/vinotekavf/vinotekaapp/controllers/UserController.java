@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.vinotekavf.vinotekaapp.entities.User;
 import ru.vinotekavf.vinotekaapp.enums.Role;
+import ru.vinotekavf.vinotekaapp.repos.MatchedTableRepository;
 import ru.vinotekavf.vinotekaapp.repos.UserRepository;
 import ru.vinotekavf.vinotekaapp.services.UserService;
 import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
@@ -25,14 +26,24 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    private final MatchedTableRepository tableRepository;
+
+    public UserController(UserService userService, UserRepository userRepository, MatchedTableRepository tableRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.tableRepository = tableRepository;
     }
 
     @GetMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    @GetMapping("/")
+    public String main(Model model){
+        model.addAttribute("positions", tableRepository.findAll());
+        return "main";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

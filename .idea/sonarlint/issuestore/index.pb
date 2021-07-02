@@ -19,8 +19,6 @@ Gvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/entities/User.java,a\d\ad
 Ovinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/utils/ControllerUtils.java,7\b\7b9e3a55b28c945bc931e4bb4aaef335b9cebda1
 „
 Tvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/UserController.java,1\c\1c13e914b6f6a05ffcf6260416f651609008e556
-}
-Mvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/entities/VendorCard.java,1\5\1591f80841fa055a00334cefcb804cef0783fc75
 
 Ovinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/entities/MatchedTable.java,3\9\39db81f3c52ecdb8722257f1ce264406c804eecd
 D
@@ -29,3 +27,15 @@ D
 Xvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/MatchingController.java,c\6\c6333355bb235bc295fa1e39f5e40e78fa8420b5
 e
 5vinoteka-app/.mvn/wrapper/MavenWrapperDownloader.java,6\c\6c748e832dc61d0a03303e9dde1d13156eeeb490
+…
+Uvinoteka-app/src/test/java/ru/vinotekavf/vinotekaapp/VinotekaAppApplicationTests.java,2\6\26d4f25c14deea48780f33388cc4d277b8c644e4
+b
+2vinoteka-app/.mvn/wrapper/maven-wrapper.properties,4\b\4bc342aabf119f004c5616e3cfc1c618d9478a12
+G
+vinoteka-app/.gitignore,b\0\b0ebc4155e1a8963b061b18d34210bf9ef15171a
+A
+vinoteka-app/mvnw,4\e\4e759d2dc5b4e3cc1695ab89869ef44b4c98acb9
+E
+vinoteka-app/mvnw.cmd,f\9\f9eea2c86a211478019fff33d3a9efd7e1e8fe8c
+y
+Ivinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/utils/FileUtils.java,a\d\ad1100e943e06f3d450bd3fd511fe3d7a209bff9
