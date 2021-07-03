@@ -1,87 +1,87 @@
 
-g
-java:S2095r"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(æËÂ8òƒ«¾¦/
-V
-java:S1854ñ"8Remove this useless assignment to local variable "book".(®ˆÎƒ8‡É‚À¦/
-_
-java:S1128"=Remove this unused import 'org.apache.poi.ss.usermodel.Cell'.(éÊˆüÿÿÿÿ8èº±½¦/
-U
-java:S1854I"8Remove this useless assignment to local variable "book".(®ˆÎƒ8õ¶à¦/
 e
-java:S18548"CRemove this useless assignment to local variable "productNameCols".(Ç²¬µúÿÿÿÿ8Î“İ½¦/
+java:S1854>"CRemove this useless assignment to local variable "releaseYearCols".(üÂéÂøÿÿÿÿ8õ¶à¦/
 t
-java:S3252²"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ğ…€À¦/
-u
-java:S3252”"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8û±ş¿¦/
-u
-java:S3776W"SRefactor this method to reduce its Cognitive Complexity from 193 to the 15 allowed.(¯¦œ§ıÿÿÿÿ8²Ü½¦/
+java:S3252‚"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8µ³ü¿¦/
 u
 java:S3252Ô"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8‡É‚À¦/
-d
-java:S18549"BRemove this useless assignment to local variable "vendorCodeCols".(ˆĞ§Íÿÿÿÿÿ8õ¶à¦/
-t
-java:S3252Ò"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8‡É‚À¦/
-U
-java:S1854G"8Remove this useless assignment to local variable "book".(æËÂ8Î“İ½¦/
-u
-java:S3252„"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8µ³ü¿¦/
-V
-java:S14818"4Remove this unused "productNameCols" local variable.(Ç²¬µúÿÿÿÿ8Î“İ½¦/
-[
-java:S1854=">Remove this useless assignment to local variable "volumeCols".(ÕÇãê8õ¶à¦/
-P
-java:S1481:".Remove this unused "priceCols" local variable.(âË®‰şÿÿÿÿ8õ¶à¦/
-u
-java:S3252´"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ğ…€À¦/
-t
-java:S3252Â"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8Éè€À¦/
-g
-java:S2095G"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(æËÂ8õ¶à¦/
-V
-java:S1481>"4Remove this unused "releaseYearCols" local variable.(üÂéÂøÿÿÿÿ8õ¶à¦/
-u
-java:S3252¤"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8¥¥ÿ¿¦/
 _
-java:S1854:"=Remove this useless assignment to local variable "priceCols".(âË®‰şÿÿÿÿ8õ¶à¦/
-t
-java:S3252ã"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8û¿ƒÀ¦/
-U
-java:S14819"3Remove this unused "vendorCodeCols" local variable.(ˆĞ§Íÿÿÿÿÿ8õ¶à¦/
-u
-java:S3252å"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8û¿ƒÀ¦/
-G
-java:S1481ñ")Remove this unused "book" local variable.(®ˆÎƒ8‡É‚À¦/
-F
-java:S1481G")Remove this unused "book" local variable.(æËÂ8Î“İ½¦/
+java:S1128"=Remove this unused import 'org.apache.poi.ss.usermodel.Cell'.(éÊˆüÿÿÿÿ8èº±½¦/
 F
 java:S1481I")Remove this unused "book" local variable.(®ˆÎƒ8õ¶à¦/
 [
 java:S1481;"9Remove this unused "promotionalPriceCols" local variable.(æŸïúÿÿÿÿ8õ¶à¦/
-t
-java:S3252’"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8û±ş¿¦/
-e
-java:S1854>"CRemove this useless assignment to local variable "releaseYearCols".(üÂéÂøÿÿÿÿ8õ¶à¦/
-g
-java:S2095I"JUse try-with-resources or close this "HSSFWorkbook" in a "finally" clause.(®ˆÎƒ8õ¶à¦/
-c
-java:S1854<"ARemove this useless assignment to local variable "remainderCols".(”Õ¨ªùÿÿÿÿ8õ¶à¦/
-t
-java:S3252‚"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8µ³ü¿¦/
-u
-java:S3252Ä"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8Éè€À¦/
+U
+java:S1854I"8Remove this useless assignment to local variable "book".(®ˆÎƒ8õ¶à¦/
 c
 java:S1128"ARemove this unused import 'org.apache.commons.lang3.ObjectUtils'.(‰úåâüÿÿÿÿ8˜Ûï½¦/
-H
-java:S1075E"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8õ¶à¦/
-j
-java:S1854;"HRemove this useless assignment to local variable "promotionalPriceCols".(æŸïúÿÿÿÿ8õ¶à¦/
+V
+java:S1854ñ"8Remove this useless assignment to local variable "book".(®ˆÎƒ8‡É‚À¦/
+u
+java:S3252Ä"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8Éè€À¦/
 T
 java:S1481<"2Remove this unused "remainderCols" local variable.(”Õ¨ªùÿÿÿÿ8õ¶à¦/
-H
-java:S1075p"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8òƒ«¾¦/
-c
-java:S1128"ARemove this unused import 'org.apache.commons.lang3.StringUtils'.(Øœ¼ºúÿÿÿÿ8è®ı¿¦/
-L
-java:S1481="/Remove this unused "volumeCols" local variable.(ÕÇãê8õ¶à¦/
 t
 java:S3252¢"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8¥¥ÿ¿¦/
+V
+java:S1481>"4Remove this unused "releaseYearCols" local variable.(üÂéÂøÿÿÿÿ8õ¶à¦/
+H
+java:S1075p"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8òƒ«¾¦/
+t
+java:S3252’"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8û±ş¿¦/
+H
+java:S1075E"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8õ¶à¦/
+u
+java:S3252å"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8û¿ƒÀ¦/
+U
+java:S14819"3Remove this unused "vendorCodeCols" local variable.(ˆĞ§Íÿÿÿÿÿ8õ¶à¦/
+t
+java:S3252Â"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8Éè€À¦/
+U
+java:S1854G"8Remove this useless assignment to local variable "book".(æËÂ8Î“İ½¦/
+g
+java:S2095r"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(æËÂ8òƒ«¾¦/
+u
+java:S3252´"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ğ…€À¦/
+u
+java:S3776W"SRefactor this method to reduce its Cognitive Complexity from 193 to the 15 allowed.(¯¦œ§ıÿÿÿÿ8²Ü½¦/
+L
+java:S1481="/Remove this unused "volumeCols" local variable.(ÕÇãê8õ¶à¦/
+_
+java:S1854:"=Remove this useless assignment to local variable "priceCols".(âË®‰şÿÿÿÿ8õ¶à¦/
+u
+java:S3252¤"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8¥¥ÿ¿¦/
+P
+java:S1481:".Remove this unused "priceCols" local variable.(âË®‰şÿÿÿÿ8õ¶à¦/
+V
+java:S14818"4Remove this unused "productNameCols" local variable.(Ç²¬µúÿÿÿÿ8Î“İ½¦/
+c
+java:S1854<"ARemove this useless assignment to local variable "remainderCols".(”Õ¨ªùÿÿÿÿ8õ¶à¦/
+j
+java:S1854;"HRemove this useless assignment to local variable "promotionalPriceCols".(æŸïúÿÿÿÿ8õ¶à¦/
+G
+java:S1481ñ")Remove this unused "book" local variable.(®ˆÎƒ8‡É‚À¦/
+e
+java:S18548"CRemove this useless assignment to local variable "productNameCols".(Ç²¬µúÿÿÿÿ8Î“İ½¦/
+t
+java:S3252Ò"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8‡É‚À¦/
+g
+java:S2095I"JUse try-with-resources or close this "HSSFWorkbook" in a "finally" clause.(®ˆÎƒ8õ¶à¦/
+u
+java:S3252”"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8û±ş¿¦/
+[
+java:S1854=">Remove this useless assignment to local variable "volumeCols".(ÕÇãê8õ¶à¦/
+F
+java:S1481G")Remove this unused "book" local variable.(æËÂ8Î“İ½¦/
+d
+java:S18549"BRemove this useless assignment to local variable "vendorCodeCols".(ˆĞ§Íÿÿÿÿÿ8õ¶à¦/
+t
+java:S3252²"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ğ…€À¦/
+g
+java:S2095G"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(æËÂ8õ¶à¦/
+c
+java:S1128"ARemove this unused import 'org.apache.commons.lang3.StringUtils'.(Øœ¼ºúÿÿÿÿ8è®ı¿¦/
+u
+java:S3252„"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8µ³ü¿¦/
+t
+java:S3252ã"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8û¿ƒÀ¦/

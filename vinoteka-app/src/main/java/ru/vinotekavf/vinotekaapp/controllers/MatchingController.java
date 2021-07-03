@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.vinotekavf.vinotekaapp.entities.MatchedTable;
+import ru.vinotekavf.vinotekaapp.entities.Position;
+import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.enums.ExcelColumns;
 import ru.vinotekavf.vinotekaapp.repos.MatchedTableRepository;
 import ru.vinotekavf.vinotekaapp.utils.FileUtils;
@@ -25,6 +27,7 @@ import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Iterator;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
@@ -69,49 +72,6 @@ public class MatchingController {
             file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
             if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
                 XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
-            } else if (file.getOriginalFilename().contains("xls")) {
-                HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
-            } else if (file.getOriginalFilename().contains("csv")) {
-                //Todo csv handling
-            }
-        }
-        return "main";
-    }
-
-    @GetMapping("testingMatch")
-    public String getTestingMatch() {
-        return "testingMatch";
-    }
-
-    @PostMapping("testingMatch")
-    public String matchTestFile(@RequestParam("file") MultipartFile file,
-                                @RequestParam("provider") String provider,
-                                @RequestParam("phone") String phone,
-                                @RequestParam("managerName") String managerName,
-                                @RequestParam("productName") String productName,
-                                @RequestParam("vendorCode") String vendorCode,
-                                @RequestParam("price") String price,
-                                @RequestParam("promotionalPrice") String promotionalPrice,
-                                @RequestParam("remainder") String remainder,
-                                @RequestParam("volume") String volume,
-                                @RequestParam("releaseYear") String releaseYear
-    ) throws IOException {
-        String[] productNameCols = productName.split(",");
-        String[] vendorCodeCols = vendorCode.split(",");
-        String[] priceCols = price.split(",");
-        String[] promotionalPriceCols = promotionalPrice.split(",");
-        String[] remainderCols = remainder.split(",");
-        String[] volumeCols = volume.split(",");
-        String[] releaseYearCols = releaseYear.split(",");
-
-        if (isNotEmpty(file.getOriginalFilename())) {
-            File uploadDirectory = new File(uploadPath);
-            if (!uploadDirectory.exists()) {
-                uploadDirectory.mkdir();
-            }
-            file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
-            if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
-                XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
                 XSSFSheet sheet = book.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.rowIterator();
                 while (rowIterator.hasNext()) {
@@ -126,11 +86,9 @@ public class MatchingController {
                         if (isNotBlank(str)) {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setProductName(cellWithValue.getStringCellValue());
-                                } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setProductName(Double.toString(cellWithValue.getNumericCellValue()));
                                 } else {
                                     table.setProductName("");
                                 }
@@ -142,11 +100,11 @@ public class MatchingController {
                         if (isNotBlank(str)) {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setFvProductName(cellWithValue.getStringCellValue());
                                 } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setVendorCode(Double.toString(cellWithValue.getNumericCellValue()));
+                                    table.setVendorCode(BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString());
                                 } else {
                                     table.setVendorCode("");
                                 }
@@ -158,11 +116,11 @@ public class MatchingController {
                         if (isNotBlank(str)) {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setFvProductName(cellWithValue.getStringCellValue());
                                 } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setPrice(Double.toString(cellWithValue.getNumericCellValue()));
+                                    table.setPrice(BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString());
                                 } else {
                                     table.setPrice("");
                                 }
@@ -174,11 +132,11 @@ public class MatchingController {
                         if (isNotBlank(str)) {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setFvProductName(cellWithValue.getStringCellValue());
                                 } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setPromotionalPrice(Double.toString(cellWithValue.getNumericCellValue()));
+                                    table.setPromotionalPrice(BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString());
                                 } else {
                                     table.setPromotionalPrice("");
                                 }
@@ -190,11 +148,11 @@ public class MatchingController {
                         if (isNotBlank(str)) {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setFvProductName(cellWithValue.getStringCellValue());
                                 } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setRemainder(Double.toString(cellWithValue.getNumericCellValue()));
+                                    table.setRemainder(BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString());
                                 } else {
                                     table.setRemainder("");
                                 }
@@ -206,11 +164,11 @@ public class MatchingController {
                         if (isNotBlank(str))  {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setFvProductName(cellWithValue.getStringCellValue());
                                 } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setVolume(Double.toString(cellWithValue.getNumericCellValue()));
+                                    table.setVolume(BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString());
                                 } else {
                                     table.setVolume("");
                                 }
@@ -223,11 +181,11 @@ public class MatchingController {
                         if (isNotBlank(str)) {
                             XSSFCell curCell = row.getCell(ExcelColumns.valueOf(str).ordinal());
                             if (isNotEmpty(curCell)) {
-                                XSSFCell cellWithValue = FileUtils.getValuableCellFromMerged(sheet, curCell);
+                                XSSFCell cellWithValue = FileUtils.getValuableXSSFCellFromMerged(sheet, curCell);
                                 if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                                     table.setFvProductName(cellWithValue.getStringCellValue());
                                 } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                                    table.setReleaseYear(Double.toString(cellWithValue.getNumericCellValue()));
+                                    table.setReleaseYear(BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString());
                                 } else {
                                     table.setReleaseYear("");
                                 }
@@ -236,7 +194,6 @@ public class MatchingController {
                     }
                     tableRepository.save(table);
                 }
-
             } else if (file.getOriginalFilename().contains("xls")) {
                 HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
             } else if (file.getOriginalFilename().contains("csv")) {

@@ -22,6 +22,7 @@ public class Position {
     private String price;
     private String promotionalPrice;//цена по скидке/акции
     private String remainder;//остаток
+    private String maker;
 
     //артикул в Festival Vin
     private String fvVendorCode;

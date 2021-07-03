@@ -35,13 +35,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${positions.empty}">
-            <td colspan="4" align="center"> Нет компаний </td>
+        <tr th:if="${providers.empty}">
+            <td colspan="3" align="center"> Нет компаний </td>
         </tr>
-        <tr th:each="position : ${positions}">
-            <td><a class="s8" th:href="@{/positions/{id}(id = ${position.id})}"> <span th:text="${position.provider}"/></a></td>
-            <td><a class="btn btn-primary" role="button" th:href="@{/positions/{id}(id = ${position.id})}">Редактировать</a></td>
-            <td><a class="btn btn-primary" role="button" th:href="@{/positions/{id}(id = ${position.id})}">Удалить</a></td>
+        <tr th:each="provider : ${providers}">
+            <td><a class="s8" th:href="@{/provider/{id}(id = ${provider.id})}"> <span th:text="${provider.name}"/></a></td>
+            <td><a class="btn btn-primary" role="button" th:href="@{/providers/{id}(id = ${provider.id})}">Редактировать</a></td>
+            <td><a class="btn btn-primary" role="button" th:href="@{/providers/{id}(id = ${provider.id})}">Удалить</a></td>
         </tr>
         </tbody>
     </table>

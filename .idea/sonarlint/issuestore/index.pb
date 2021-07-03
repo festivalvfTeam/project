@@ -39,3 +39,17 @@ E
 vinoteka-app/mvnw.cmd,f\9\f9eea2c86a211478019fff33d3a9efd7e1e8fe8c
 y
 Ivinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/utils/FileUtils.java,a\d\ad1100e943e06f3d450bd3fd511fe3d7a209bff9
+_
+/vinoteka-app/src/main/resources/static/body.css,4\1\41f24c3875cca409fa37d0739b2522e208638c4d
+c
+3vinoteka-app/src/main/resources/static/calendar.css,1\6\16da0e5f23ca48dd24533b2d3218410c7dd0644f
+`
+0vinoteka-app/src/main/resources/static/input.css,3\2\321b60a8d9fff8121a8ef62ed06128c6207bb6b0
+b
+2vinoteka-app/src/main/resources/static/profile.css,7\2\72612097e5e87b8682da98a38fc3a6dcb78549d2
+d
+4vinoteka-app/src/main/resources/templates/login.html,8\0\80a618a9bb9e06938840489778593f7eb2f15657
+e
+5vinoteka-app/src/main/resources/templates/navbar.html,c\0\c0239f4c29353a80c0935c5270ab6665a54258f7
+k
+;vinoteka-app/src/main/resources/templates/registration.html,1\a\1aeb9a256bd0dd6fff1887a5390811238ef97b25

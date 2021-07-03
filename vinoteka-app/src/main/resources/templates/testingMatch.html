@@ -58,7 +58,7 @@
                                 <h6 class="mb-0">Номер телефона</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="phone" class="border-none" th:value="${phone}"/>
+                                <input name="phone" class="border-none col-sm-9" th:value="${phone}"/>
                             </div>
                         </div>
                         <hr>
@@ -67,7 +67,7 @@
                                 <h6 class="mb-0">Имя менеджера</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="managerName" class="border-none" th:value="${managerName}"/>
+                                <input name="managerName" class="border-none col-sm-9" th:value="${managerName}"/>
                             </div>
                         </div>
                         <hr>
@@ -76,7 +76,16 @@
                                 <h6 class="mb-0">Поле "Наименование"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="productName" class="border-none" th:value="${productName}"/>
+                                <input name="productName" class="border-none col-sm-9" th:value="${productName}"/>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Поле "Производитель"</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input name="maker" class="border-none col-sm-9" th:value="${maker}"/>
                             </div>
                         </div>
                         <hr>
@@ -85,7 +94,7 @@
                                 <h6 class="mb-0">Поле "Артикул"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="vendorCode" class="border-none" th:value="${vendorCode}"/>
+                                <input name="vendorCode" class="border-none col-sm-9" th:value="${vendorCode}"/>
                             </div>
                         </div>
                         <hr>
@@ -94,7 +103,7 @@
                                 <h6 class="mb-0">Поле "Цена"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="price" class="border-none" th:value="${price}"/>
+                                <input name="price" class="border-none col-sm-9" th:value="${price}"/>
                             </div>
                         </div>
                         <hr>
@@ -103,7 +112,7 @@
                                 <h6 class="mb-0">Поле "Цена по акции"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="promotionalPrice" class="border-none" th:value="${promotionalPrice}"/>
+                                <input name="promotionalPrice" class="border-none col-sm-9" th:value="${promotionalPrice}"/>
                             </div>
                         </div>
                         <hr>
@@ -112,7 +121,7 @@
                                 <h6 class="mb-0">Поле "Остаток"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="remainder" class="border-none" th:value="${remainder}"/>
+                                <input name="remainder" class="border-none col-sm-9" th:value="${remainder}"/>
                             </div>
                         </div>
                         <hr>
@@ -121,7 +130,7 @@
                                 <h6 class="mb-0">Поле "Объем"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="volume" class="border-none" th:value="${volume}"/>
+                                <input name="volume" class="border-none col-sm-9" th:value="${volume}"/>
                             </div>
                         </div>
                         <hr>
@@ -130,7 +139,25 @@
                                 <h6 class="mb-0">Поле "Винтаж (год)"</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input name="releaseYear" class="border-none" th:value="${releaseYear}"/>
+                                <input name="releaseYear" class="border-none col-sm-9" th:value="${releaseYear}"/>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Поле "Артикул ФВ"</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input name="fvVendorCode" class="border-none col-sm-9" th:value="${fvVendorCode}"/>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Поле "Наименование ФВ"</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input name="fvProductName" class="border-none col-sm-9" th:value="${fvProductName}"/>
                             </div>
                         </div>
                     </div>
