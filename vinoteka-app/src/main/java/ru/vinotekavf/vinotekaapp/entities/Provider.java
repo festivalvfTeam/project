@@ -18,4 +18,13 @@ public class Provider {
     private String name;
     private String phone;
     private String managerName;
+
+    public Provider() {
+    }
+
+    public Provider(String name, String phone, String managerName) {
+        this.name = name;
+        this.phone = phone;
+        this.managerName = managerName;
+    }
 }
