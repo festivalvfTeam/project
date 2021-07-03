@@ -1,6 +1,7 @@
 package ru.vinotekavf.vinotekaapp.controllers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,10 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.vinotekavf.vinotekaapp.entities.Position;
 import ru.vinotekavf.vinotekaapp.entities.User;
 import ru.vinotekavf.vinotekaapp.enums.Role;
-import ru.vinotekavf.vinotekaapp.repos.MatchedTableRepository;
 import ru.vinotekavf.vinotekaapp.repos.UserRepository;
+import ru.vinotekavf.vinotekaapp.services.PositionService;
 import ru.vinotekavf.vinotekaapp.services.UserService;
 import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
 
@@ -22,17 +24,11 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    private final UserRepository userRepository;
-
-    private final MatchedTableRepository tableRepository;
-
-    public UserController(UserService userService, UserRepository userRepository, MatchedTableRepository tableRepository) {
-        this.userService = userService;
-        this.userRepository = userRepository;
-        this.tableRepository = tableRepository;
-    }
+    @Autowired
+    private PositionService positionService;
 
     @GetMapping("/login")
     public String login(){
@@ -42,7 +38,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @GetMapping("/")
     public String main(Model model){
-        model.addAttribute("positions", tableRepository.findAll());
+        model.addAttribute("positions", positionService.findAll());
         return "main";
     }
 
@@ -86,7 +82,7 @@ public class UserController {
             user.setRoles(Collections.singleton(Role.ADMIN));
         }
 
-        userRepository.save(user);
+        userService.save(user);
         return "redirect:";
     }
 }

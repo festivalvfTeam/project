@@ -23,6 +23,7 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Column(unique = true)
     private String email;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

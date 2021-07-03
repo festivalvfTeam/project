@@ -9,35 +9,44 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.vinotekavf.vinotekaapp.entities.User;
+import ru.vinotekavf.vinotekaapp.enums.Role;
 import ru.vinotekavf.vinotekaapp.repos.UserRepository;
+
+import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    private final UserRepository userRepo;
-
-    public UserService(UserRepository userRepo) { this.userRepo = userRepo; }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final User user = userRepo.findByUsername(username);
+        final User user = userRepository.findByUsername(username);
         if(ObjectUtils.isEmpty(user)) {
             throw new UsernameNotFoundException("Пользователь не найден");
         }
-
         return user;
     }
 
+    public void save(User user) {
+        if (userRepository.findByEmail(user.getEmail()) == null) {
+            user.setRoles(Collections.singleton(Role.USER));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
+    }
+
     public boolean addUser(User user) {
-        User userFromDb = userRepo.findByUsername(user.getUsername());
+        User userFromDb = userRepository.findByUsername(user.getUsername());
         if (!ObjectUtils.isEmpty(userFromDb)) {
             return false;
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepo.save(user);
+        userRepository.save(user);
         return true;
     }
 
@@ -47,6 +56,6 @@ public class UserService implements UserDetailsService {
             user.setPassword(passwordEncoder.encode(password));
         }
 
-        userRepo.save(user);
+        userRepository.save(user);
     }
 }
