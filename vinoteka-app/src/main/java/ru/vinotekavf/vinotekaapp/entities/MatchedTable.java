@@ -14,33 +14,21 @@ public class MatchedTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //поставщик
+    //Данные о поставщике
     private String provider;
-
     private String phone;
-
     private String managerName;
 
-    //артикул
-    private String vendorCode;
-
+    //Данные о позиции
+    private String vendorCode;//артикул
     private String productName;
-
-    //объем
-    private String volume;
-
+    private String volume;//объем
     private String releaseYear;
-
     private String price;
-
-    //цена по скидке/акции
-    private String promotionalPrice;
-
-    //остаток
-    private String remainder;
+    private String promotionalPrice;//цена по скидке/акции
+    private String remainder;//остаток
 
     //артикул в Festival Vin
     private String fvVendorCode;
-
     private String fvProductName;
 }
