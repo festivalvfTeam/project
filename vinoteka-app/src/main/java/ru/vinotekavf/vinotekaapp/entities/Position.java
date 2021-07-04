@@ -1,11 +1,13 @@
 package ru.vinotekavf.vinotekaapp.entities;
 
 import lombok.Data;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "posit")
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,27 +30,59 @@ public class Position {
     private String fvVendorCode;
     private String fvProductName;
 
-    public Position() {
+    public void addVendorCode(String vendorCode) {
+        if (this.vendorCode == null || this.vendorCode.isEmpty())
+            this.vendorCode = vendorCode;
+        else
+            this.vendorCode = this.vendorCode + ", " + vendorCode;
     }
 
-    public Position(String vendorCode, String productName, String volume, String releaseYear, String price, String promotionalPrice, String remainder) {
-        this.vendorCode = vendorCode;
-        this.productName = productName;
-        this.volume = volume;
-        this.releaseYear = releaseYear;
-        this.price = price;
-        this.promotionalPrice = promotionalPrice;
-        this.remainder = remainder;
+    public void addProductName(String productName) {
+        if (this.productName == null || this.productName.isEmpty())
+            this.productName = productName;
+        else
+            this.productName = this.productName + ", " + productName;
     }
 
-    public Position(Provider provider, String vendorCode, String productName, String volume, String releaseYear, String price, String promotionalPrice, String remainder) {
-        this.provider = provider;
-        this.vendorCode = vendorCode;
-        this.productName = productName;
-        this.volume = volume;
-        this.releaseYear = releaseYear;
-        this.price = price;
-        this.promotionalPrice = promotionalPrice;
-        this.remainder = remainder;
+    public void addVolume(String volume) {
+        if (this.volume == null || this.volume.isEmpty())
+            this.volume = volume;
+        else
+            this.volume = this.volume + ", " + volume;
+    }
+
+    public void addReleaseYear(String releaseYear) {
+        if (this.releaseYear == null || this.releaseYear.isEmpty())
+            this.releaseYear = releaseYear;
+        else
+            this.releaseYear = this.releaseYear + ", " + releaseYear;
+    }
+
+    public void addPrice(String price) {
+        if (this.price == null || this.price.isEmpty())
+            this.price = price;
+        else
+            this.price = this.price + ", " + price;
+    }
+
+    public void addPromotionalPrice(String promotionalPrice) {
+        if (this.promotionalPrice == null || this.promotionalPrice.isEmpty())
+            this.promotionalPrice = promotionalPrice;
+        else
+            this.promotionalPrice = this.promotionalPrice + ", " + promotionalPrice;
+    }
+
+    public void addRemainder(String remainder) {
+        if (this.remainder == null || this.remainder.isEmpty())
+            this.remainder = remainder;
+        else
+            this.remainder = this.remainder + ", " + remainder;
+    }
+
+    public void addMaker(String maker) {
+        if (this.maker == null || this.maker.isEmpty())
+            this.maker = maker;
+        else
+            this.maker = this.maker + ", " + maker;
     }
 }
