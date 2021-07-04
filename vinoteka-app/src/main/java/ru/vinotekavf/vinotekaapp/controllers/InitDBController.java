@@ -19,7 +19,6 @@ import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.enums.ExcelColumns;
 import ru.vinotekavf.vinotekaapp.repos.PositionRepository;
 import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
-import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -400,10 +399,6 @@ public class InitDBController {
                     }
                 }
 
-            } else if (file.getOriginalFilename().contains("xls")) {
-                HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
-            } else if (file.getOriginalFilename().contains("csv")) {
-                //Todo csv handling
             }
         }
         return "main";
