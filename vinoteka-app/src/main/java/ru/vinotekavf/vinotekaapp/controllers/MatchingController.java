@@ -1,28 +1,24 @@
 package ru.vinotekavf.vinotekaapp.controllers;
 
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
-import ru.vinotekavf.vinotekaapp.enums.ExcelColumns;
 import ru.vinotekavf.vinotekaapp.services.PositionService;
 import ru.vinotekavf.vinotekaapp.services.ProviderService;
+import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
@@ -37,21 +33,6 @@ public class MatchingController {
 
     @Autowired
     private ProviderService providerService;
-
-    public Path writeInDirectoryAndGetPath(MultipartFile file) {
-        File uploadDirectory = new File(uploadPath);
-        if (!uploadDirectory.exists()) {
-            uploadDirectory.mkdir();
-        }
-        Path filepath = Paths.get(uploadPath, file.getOriginalFilename());
-        try {
-            file.transferTo(filepath);
-            //file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return filepath;
-    }
 
     @PostMapping("/match_provider")
     public String matchProvider(@RequestParam("providerName") String providerName,
@@ -77,48 +58,16 @@ public class MatchingController {
 
         if (isNotEmpty(file)) {
 
-            Integer[] productNameCols = Arrays.stream(productName.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] vendorCodeCols = Arrays.stream(vendorCode.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] priceCols = Arrays.stream(price.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] promotionalPriceCols = Arrays.stream(promotionalPrice.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] remainderCols = Arrays.stream(remainder.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] volumeCols = Arrays.stream(volume.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] releaseYearCols = Arrays.stream(releaseYear.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
-            Integer[] makerCols = Arrays.stream(maker.split(",")).map(str -> {
-                if (StringUtils.isNotBlank(str))
-                    return ExcelColumns.valueOf(str).ordinal();
-                return -1;
-            }).toArray(Integer[]::new);
+            Integer[] productNameCols = ControllerUtils.getIntCols(productName);
+            Integer[] vendorCodeCols = ControllerUtils.getIntCols(vendorCode);
+            Integer[] priceCols = ControllerUtils.getIntCols(price);
+            Integer[] promotionalPriceCols = ControllerUtils.getIntCols(promotionalPrice);
+            Integer[] remainderCols = ControllerUtils.getIntCols(remainder);
+            Integer[] volumeCols = ControllerUtils.getIntCols(volume);
+            Integer[] releaseYearCols = ControllerUtils.getIntCols(releaseYear);
+            Integer[] makerCols = ControllerUtils.getIntCols(maker);
 
-            Path path = writeInDirectoryAndGetPath(file);
+            Path path = ControllerUtils.writeInDirectoryAndGetPath(file, uploadPath);
             Provider provider = providerService.getProviderById(id_provider);
 
             file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
@@ -133,11 +82,4 @@ public class MatchingController {
         }
         return "testingMatch";
     }
-
-    @GetMapping("testingMatch")
-    public String getTestingMatch() {
-        return "testingMatch";
-    }
-
-
 }

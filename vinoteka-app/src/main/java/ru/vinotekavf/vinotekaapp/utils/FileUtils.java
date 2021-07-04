@@ -1,10 +1,20 @@
 package ru.vinotekavf.vinotekaapp.utils;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import ru.vinotekavf.vinotekaapp.enums.ExcelColumns;
+
+import java.math.BigDecimal;
+
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 
 public class FileUtils {
     public static XSSFCell getValuableXSSFCellFromMerged (XSSFSheet sheet, XSSFCell cell) {
@@ -27,5 +37,35 @@ public class FileUtils {
         return cell;
     }
 
+    public static String getValueFromXLSXColumn(String column, XSSFRow row) {
+        if (isNotBlank(column)) {
+            XSSFCell cell = row.getCell(ExcelColumns.valueOf(column).ordinal());
+            if (isNotEmpty(cell)) {
+                if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_STRING) {
+                    return cell.getStringCellValue();
+                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_NUMERIC) {
+                    return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+                } else {
+                    return "";
+                }
+            }
+        }
+        return null;
+    }
 
+    public static String getValueFromXLSColumn(String column, HSSFRow row) {
+        if (isNotBlank(column)) {
+            HSSFCell cell = row.getCell(ExcelColumns.valueOf(column).ordinal());
+            if (isNotEmpty(cell)) {
+                if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_STRING) {
+                    return cell.getStringCellValue();
+                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_NUMERIC) {
+                    return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+                } else {
+                    return "";
+                }
+            }
+        }
+        return null;
+    }
 }
