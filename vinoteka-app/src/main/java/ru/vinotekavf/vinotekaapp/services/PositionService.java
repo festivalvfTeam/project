@@ -1,16 +1,18 @@
 package ru.vinotekavf.vinotekaapp.services;
 
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
+import au.com.bytecode.opencsv.*;
+import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.vinotekavf.vinotekaapp.dto.PositionProviderDto;
 import ru.vinotekavf.vinotekaapp.entities.Position;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.repos.PositionRepository;
+import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -23,6 +25,9 @@ import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 public class PositionService {
     @Autowired
     private PositionRepository positionRepository;
+
+    @Autowired
+    private ProviderRepository providerRepository;
 
     @Value("${spring.datasource.url}")
     private String URL_DB;
@@ -67,9 +72,29 @@ public class PositionService {
         {
             ResultSet myResultSet = stmt.executeQuery(QUERY);
             writer.writeAll(myResultSet, true);
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
+        } catch (SQLException | IOException exception) {
+            logger.error(exception.getMessage());
         }
+    }
+
+    public void writeAllPositionsInCSVByDTO() {
+        String CSV_FILE_PATH = "src/main/resources/files/data.csv";
+        List<PositionProviderDto> list = positionRepository.getJoinInformation();
+        try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(CSV_FILE_PATH), "windows-1251"), ';')) {
+            writer.writeNext(PositionProviderDto.getColumnsNames());
+            list.forEach(x -> writer.writeNext(x.toStrArray()));
+        } catch (IOException exception) {
+            logger.error(exception.getMessage());
+        }
+    }
+
+    private ColumnPositionMappingStrategy<PositionProviderDto> setColumnMapping() {
+        ColumnPositionMappingStrategy<PositionProviderDto> strategy = new ColumnPositionMappingStrategy<>();
+        strategy.setType(PositionProviderDto.class);
+        String[] columns = new String[] {"providerName", "providerPhone", "maker", "vendorCode"
+                , "productName", "volume", "releaseYear", "price", "remainder", "fvVendorCode", "fvProductName"};
+        strategy.setColumnMapping(columns);
+        return strategy;
     }
 
     public void readCSVAndWriteInDb(String csvFilename, String encoding, Provider provider, Integer[] vendorCodeIndexes, Integer[] productNameIndexes, Integer[] volumeIndexes,
