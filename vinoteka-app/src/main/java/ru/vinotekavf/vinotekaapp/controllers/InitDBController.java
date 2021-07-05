@@ -17,22 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.vinotekavf.vinotekaapp.entities.Position;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.enums.ExcelColumns;
-import ru.vinotekavf.vinotekaapp.repos.PositionRepository;
 import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
+import ru.vinotekavf.vinotekaapp.services.PositionService;
 import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
 import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Iterator;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 
 @Controller
@@ -45,7 +40,7 @@ public class InitDBController {
     ProviderRepository providerRepository;
 
     @Autowired
-    PositionRepository positionRepository;
+    PositionService positionService;
 
     @PostMapping("testingMatch")
     public String matchTestFile(@RequestParam("file") MultipartFile file,
@@ -107,14 +102,13 @@ public class InitDBController {
 
                             providerRepository.save(curProvider);
                             position.setProvider(curProvider);
-                            positionRepository.save(position);
+                            positionService.save(position);
                         }
                     }
                 }
-
             }
         }
-        return "main";
+        return "redirect:/";
     }
 
    @GetMapping("testingMatch")

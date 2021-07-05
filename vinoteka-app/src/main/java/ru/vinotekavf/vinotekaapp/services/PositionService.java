@@ -17,6 +17,8 @@ import java.nio.charset.Charset;
 import java.sql.*;
 import java.util.List;
 
+import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+
 @Service
 public class PositionService {
     @Autowired
@@ -33,7 +35,24 @@ public class PositionService {
             "join posit po on pr.id = po.provider_id";
 
     public void save(Position position) {
-        positionRepository.save(position);
+        Position positionFromDb = positionRepository.findByFvVendorCode(position.getFvVendorCode());
+
+        if (isNotEmpty(positionFromDb)) {
+            positionFromDb.setProvider(position.getProvider());
+            positionFromDb.setVendorCode(position.getVendorCode());
+            positionFromDb.setProductName(position.getProductName());
+            positionFromDb.setVolume(position.getVolume());
+            positionFromDb.setReleaseYear(position.getReleaseYear());
+            positionFromDb.setPrice(position.getPrice());
+            positionFromDb.setPromotionalPrice(position.getPromotionalPrice());
+            positionFromDb.setRemainder(position.getRemainder());
+            positionFromDb.setMaker(position.getMaker());
+            positionFromDb.setFvVendorCode(position.getFvVendorCode());
+            positionFromDb.setFvProductName(position.getFvProductName());
+            positionRepository.save(positionFromDb);
+        } else {
+            positionRepository.save(position);
+        }
     }
 
     public List<Position> findAll() {

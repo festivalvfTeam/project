@@ -1,7 +1,6 @@
 package ru.vinotekavf.vinotekaapp.entities;
 
 import lombok.Data;
-import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
 

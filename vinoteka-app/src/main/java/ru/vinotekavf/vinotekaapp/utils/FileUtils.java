@@ -13,8 +13,7 @@ import java.math.BigDecimal;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
+import static org.apache.poi.ss.usermodel.Cell.*;
 
 public class FileUtils {
     public static XSSFCell getValuableXSSFCellFromMerged (XSSFSheet sheet, XSSFCell cell) {
@@ -45,12 +44,19 @@ public class FileUtils {
                     return cell.getStringCellValue();
                 } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_NUMERIC) {
                     return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_FORMULA) {
+                    switch (cell.getCachedFormulaResultType()) {
+                        case CELL_TYPE_STRING:
+                            return cell.getRichStringCellValue().getString();
+                        case CELL_TYPE_NUMERIC:
+                            return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+                    }
                 } else {
                     return "";
                 }
             }
         }
-        return null;
+        return "";
     }
 
     public static String getValueFromXLSColumn(String column, HSSFRow row) {
@@ -61,11 +67,18 @@ public class FileUtils {
                     return cell.getStringCellValue();
                 } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_NUMERIC) {
                     return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_FORMULA) {
+                    switch (cell.getCachedFormulaResultType()) {
+                        case CELL_TYPE_STRING:
+                            return cell.getRichStringCellValue().getString();
+                        case CELL_TYPE_NUMERIC:
+                            return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+                    }
                 } else {
                     return "";
                 }
             }
         }
-        return null;
+        return "";
     }
 }

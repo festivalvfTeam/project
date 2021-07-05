@@ -1,49 +1,16 @@
 
-_
-java:S1128"=Remove this unused import 'org.apache.poi.ss.usermodel.Cell'.(éÊˆüÿÿÿÿ8èº±½¦/
-p
-java:S3776."SRefactor this method to reduce its Cognitive Complexity from 191 to the 15 allowed.(³ç®8ßíûä¦/
-c
-java:S1128"ARemove this unused import 'org.apache.commons.lang3.StringUtils'.(Øœ¼ºúÿÿÿÿ8è®ı¿¦/
-t
-java:S3252z"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ßíûä¦/
-t
-java:S3252˜"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
-G
-java:S1481Æ")Remove this unused "book" local variable.(®ˆÎƒ8õ¶à¦/
-t
-java:S3252¹"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
-u
-java:S3252š"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ßíûä¦/
-c
-java:S1128"ARemove this unused import 'org.apache.commons.lang3.ObjectUtils'.(‰úåâüÿÿÿÿ8˜Ûï½¦/
-t
-java:S3252j"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ßíûä¦/
-u
-java:S3252ª"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ßíûä¦/
-s
-java:S3252Z"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
 g
-java:S2095J"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(æËÂ8õ¶à¦/
-j
-java:S1128"HRemove this unused import 'ru.vinotekavf.vinotekaapp.entities.Provider'.(ÀÊ¯Æúÿÿÿÿ8ÔÚøä¦/
-j
-java:S1128"HRemove this unused import 'ru.vinotekavf.vinotekaapp.entities.Position'.(ô™„îøÿÿÿÿ8ÔÚøä¦/
-s
-java:S3252h"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
-V
-java:S1854Æ"8Remove this useless assignment to local variable "book".(®ˆÎƒ8õ¶à¦/
-s
-java:S3252x"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
-t
-java:S3252¨"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
-t
-java:S3252ˆ"QUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_STRING".(¹šÆ¦ÿÿÿÿÿ8ßíûä¦/
-u
-java:S3252»"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ßíûä¦/
-u
-java:S3252Š"RUse static access with "org.apache.poi.ss.usermodel.Cell" for "CELL_TYPE_NUMERIC".(ğ‰´õÿÿÿÿÿ8ßíûä¦/
+java:S2095M"JUse try-with-resources or close this "HSSFWorkbook" in a "finally" clause.(®ˆÎƒ8•ã”§/
+g
+java:S2095K"JUse try-with-resources or close this "XSSFWorkbook" in a "finally" clause.(æËÂ8•ã”§/
+m	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÕàŞ8•ã”§/
+U
+java:S1854K"8Remove this useless assignment to local variable "book".(æËÂ8•ã”§/
+U
+java:S1854M"8Remove this useless assignment to local variable "book".(®ˆÎƒ8•ã”§/
 H
-java:S1075H"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8õ¶à¦/
-l
-java:S1128"ORemove this unused import 'org.springframework.web.bind.annotation.GetMapping'.(‡¡‰Ø8È¿‘å¦/
+java:S1075I"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8•ã”§/
+F
+java:S1481K")Remove this unused "book" local variable.(æËÂ8•ã”§/
+F
+java:S1481M")Remove this unused "book" local variable.(®ˆÎƒ8•ã”§/
