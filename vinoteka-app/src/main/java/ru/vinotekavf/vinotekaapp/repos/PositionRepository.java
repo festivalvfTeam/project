@@ -13,7 +13,7 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
             "pr.name, pr.phone, po.maker, po.vendorCode, po.productName, " +
             "po.volume, po.releaseYear, po.price, po.remainder, po.fvVendorCode, " +
             "po.fvProductName) FROM Position po JOIN po.provider pr")
-    public List<PositionProviderDto> getJoinInformation();
+    List<PositionProviderDto> getJoinInformation();
 
 
     Position findByFvVendorCode(String fvVendorCode);

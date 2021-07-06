@@ -37,22 +37,29 @@ public class FileUtils {
     }
 
     public static String getValueFromXLSXColumn(String column, XSSFRow row) {
-        if (isNotBlank(column)) {
-            XSSFCell cell = row.getCell(ExcelColumns.valueOf(column).ordinal());
-            if (isNotEmpty(cell)) {
-                if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_STRING) {
-                    return cell.getStringCellValue();
-                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_NUMERIC) {
-                    return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
-                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_FORMULA) {
-                    switch (cell.getCachedFormulaResultType()) {
-                        case CELL_TYPE_STRING:
-                            return cell.getRichStringCellValue().getString();
-                        case CELL_TYPE_NUMERIC:
-                            return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+        String[] columns = column.split(",");
+
+        for (String str : columns) {
+            if (isNotBlank(str)) {
+                XSSFCell cell = row.getCell(ExcelColumns.valueOf(str).ordinal());
+                if (isNotEmpty(cell)) {
+                    XSSFCell cellWithValue = getValuableXSSFCellFromMerged(row.getSheet(), cell);
+                    if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_STRING) {
+                        return cellWithValue.getStringCellValue();
+                    } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_NUMERIC) {
+                        return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                    } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_FORMULA) {
+                        switch (cellWithValue.getCachedFormulaResultType()) {
+                            case CELL_TYPE_STRING:
+                                return cellWithValue.getRichStringCellValue().getString();
+                            case CELL_TYPE_NUMERIC:
+                                return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                            default:
+                                return "";
+                        }
+                    } else {
+                        return "";
                     }
-                } else {
-                    return "";
                 }
             }
         }
@@ -60,22 +67,29 @@ public class FileUtils {
     }
 
     public static String getValueFromXLSColumn(String column, HSSFRow row) {
-        if (isNotBlank(column)) {
-            HSSFCell cell = row.getCell(ExcelColumns.valueOf(column).ordinal());
-            if (isNotEmpty(cell)) {
-                if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_STRING) {
-                    return cell.getStringCellValue();
-                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_NUMERIC) {
-                    return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
-                } else if (isNotEmpty(cell) && cell.getCellType() == CELL_TYPE_FORMULA) {
-                    switch (cell.getCachedFormulaResultType()) {
-                        case CELL_TYPE_STRING:
-                            return cell.getRichStringCellValue().getString();
-                        case CELL_TYPE_NUMERIC:
-                            return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
+        String[] columns = column.split(",");
+
+        for (String str : columns) {
+            if (isNotBlank(str)) {
+                HSSFCell cell = row.getCell(ExcelColumns.valueOf(str).ordinal());
+                if (isNotEmpty(cell)) {
+                    HSSFCell cellWithValue = getValuableHSSFCellFromMerged(row.getSheet(), cell);
+                    if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_STRING) {
+                        return cellWithValue.getStringCellValue();
+                    } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_NUMERIC) {
+                        return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                    } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_FORMULA) {
+                        switch (cellWithValue.getCachedFormulaResultType()) {
+                            case CELL_TYPE_STRING:
+                                return cellWithValue.getRichStringCellValue().getString();
+                            case CELL_TYPE_NUMERIC:
+                                return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                            default:
+                                return "";
+                        }
+                    } else {
+                        return "";
                     }
-                } else {
-                    return "";
                 }
             }
         }

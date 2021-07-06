@@ -72,7 +72,9 @@ public class MatchingController {
 
             file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
             if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
-                XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
+                /*positionService.readXLSXAndWriteInDb(path.toString(), provider, vendorCode, productName, volume, releaseYear, price, promotionalPrice,
+                    remainder, maker);*/
+                //XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
             } else if (file.getOriginalFilename().contains("xls")) {
                 HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
             } else if (file.getOriginalFilename().contains(".csv")) {

@@ -65,3 +65,5 @@ Rvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/repos/ProviderRepository.j
 Vvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/InitDBController.java,3\7\37712bbea9f2dd193adfce9386dc76dba2ff1d0e
 Ç
 Rvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/services/PositionService.java,f\4\f427e9fdf0533e3921414ddfaf9a196555f31daf
+Å
+Qvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/dto/PositionProviderDto.java,f\b\fbb17d27dec51301bceb33e298466ac72ca57def

@@ -1,9 +1,6 @@
 package ru.vinotekavf.vinotekaapp.controllers;
 
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,19 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.vinotekavf.vinotekaapp.entities.Position;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
-import ru.vinotekavf.vinotekaapp.enums.ExcelColumns;
-import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
 import ru.vinotekavf.vinotekaapp.services.PositionService;
+import ru.vinotekavf.vinotekaapp.services.ProviderService;
 import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
 import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Iterator;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 
 @Controller
 public class InitDBController {
@@ -37,7 +32,7 @@ public class InitDBController {
     private String uploadPath;
 
     @Autowired
-    ProviderRepository providerRepository;
+    ProviderService providerService;
 
     @Autowired
     PositionService positionService;
@@ -60,56 +55,42 @@ public class InitDBController {
     ) throws IOException {
 
         if (isNotEmpty(file.getOriginalFilename())) {
-            ControllerUtils.writeInDirectoryAndGetPath(file, uploadPath);
+            Path path = ControllerUtils.writeInDirectoryAndGetPath(file, uploadPath);
 
             if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
-                XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
+                XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(path.toString()));
                 XSSFSheet sheet = book.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.rowIterator();
                 while (rowIterator.hasNext()) {
-
                     XSSFRow row = (XSSFRow) rowIterator.next();
+                    Provider curProvider = new Provider();
+                    Position position = new Position();
 
-                    if (isNotBlank(provider)) {
-                        XSSFCell providerCell = row.getCell(ExcelColumns.valueOf(provider).ordinal());
-                        if (isNotEmpty(providerCell)) {
-                            Provider curProvider = new Provider();
-                            Position position = new Position();
+                    curProvider.setName(FileUtils.getValueFromXLSXColumn(provider, row));
+                    curProvider.setPhone(FileUtils.getValueFromXLSXColumn(phone, row));
+                    curProvider.setManagerName(FileUtils.getValueFromXLSXColumn(managerName, row));
 
-                            if (ObjectUtils.isEmpty(providerRepository.findByName(providerCell.getStringCellValue()))) {
-                                if (isNotEmpty(providerCell) && providerCell.getCellType() == CELL_TYPE_STRING) {
-                                    curProvider.setName(providerCell.getStringCellValue());
-                                } else {
-                                    curProvider.setName("");
-                                }
-                            } else {
-                                curProvider = providerRepository.findByName(providerCell.getStringCellValue());
-                            }
+                    position.setProductName(FileUtils.getValueFromXLSXColumn(productName, row));
+                    position.setVendorCode(FileUtils.getValueFromXLSXColumn(vendorCode, row));
+                    position.setPrice(FileUtils.getValueFromXLSXColumn(price, row));
+                    position.setPromotionalPrice(FileUtils.getValueFromXLSXColumn(promotionalPrice, row));
+                    position.setRemainder(FileUtils.getValueFromXLSXColumn(remainder, row));
+                    position.setVolume(FileUtils.getValueFromXLSXColumn(volume, row));
+                    position.setReleaseYear(FileUtils.getValueFromXLSXColumn(releaseYear, row));
+                    position.setMaker(FileUtils.getValueFromXLSXColumn(maker, row));
+                    position.setFvProductName(FileUtils.getValueFromXLSXColumn(fvProductName, row));
+                    position.setFvVendorCode(FileUtils.getValueFromXLSXColumn(fvVendorCode, row));
 
-                            curProvider.setPhone(FileUtils.getValueFromXLSXColumn(phone, row));
-                            curProvider.setManagerName(FileUtils.getValueFromXLSXColumn(managerName, row));
-
-                            position.setProductName(FileUtils.getValueFromXLSXColumn(productName, row));
-                            position.setVendorCode(FileUtils.getValueFromXLSXColumn(vendorCode, row));
-                            position.setPrice(FileUtils.getValueFromXLSXColumn(price, row));
-                            position.setPromotionalPrice(FileUtils.getValueFromXLSXColumn(promotionalPrice, row));
-                            position.setRemainder(FileUtils.getValueFromXLSXColumn(remainder, row));
-                            position.setVolume(FileUtils.getValueFromXLSXColumn(volume, row));
-                            position.setReleaseYear(FileUtils.getValueFromXLSXColumn(releaseYear, row));
-                            position.setMaker(FileUtils.getValueFromXLSXColumn(maker, row));
-                            position.setFvProductName(FileUtils.getValueFromXLSXColumn(fvProductName, row));
-                            position.setFvVendorCode(FileUtils.getValueFromXLSXColumn(fvVendorCode, row));
-
-                            providerRepository.save(curProvider);
-                            position.setProvider(curProvider);
-                            positionService.save(position);
-                        }
-                    }
+                    providerService.save(curProvider);
+                    position.setProvider(curProvider);
+                    positionService.save(position);
                 }
+                book.close();
             }
         }
-        return "redirect:/";
+        return"redirect:/";
     }
+
 
    @GetMapping("testingMatch")
     public String getTestingMatch() {

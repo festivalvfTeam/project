@@ -3,6 +3,10 @@ package ru.vinotekavf.vinotekaapp.services;
 import au.com.bytecode.opencsv.*;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +17,12 @@ import ru.vinotekavf.vinotekaapp.entities.Position;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.repos.PositionRepository;
 import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
+import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.sql.*;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
@@ -52,7 +58,6 @@ public class PositionService {
             positionFromDb.setPromotionalPrice(position.getPromotionalPrice());
             positionFromDb.setRemainder(position.getRemainder());
             positionFromDb.setMaker(position.getMaker());
-            positionFromDb.setFvVendorCode(position.getFvVendorCode());
             positionFromDb.setFvProductName(position.getFvProductName());
             positionRepository.save(positionFromDb);
         } else {
@@ -141,6 +146,38 @@ public class PositionService {
                     save(position);
 
                 currentRow = csvReader.readNext();
+            }
+        } catch (FileNotFoundException exception) {
+            logger.info("File not found");
+            logger.error(exception.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readXLSXAndWriteInDb(String filePath, Provider provider, String vendorCode, String productName, String volume, String releaseYear,
+        String price, String promotionalPrice, String remainder, String maker, String fvProductName, String fvVendorCode) {
+        try (XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(filePath))) {
+            XSSFSheet sheet = book.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.rowIterator();
+            while (rowIterator.hasNext()) {
+                XSSFRow row = (XSSFRow) rowIterator.next();
+                Position position = new Position();
+                position.setProvider(provider);
+
+                position.setProductName(FileUtils.getValueFromXLSXColumn(productName, row));
+                position.setVendorCode(FileUtils.getValueFromXLSXColumn(vendorCode, row));
+                position.setPrice(FileUtils.getValueFromXLSXColumn(price, row));
+                position.setPromotionalPrice(FileUtils.getValueFromXLSXColumn(promotionalPrice, row));
+                position.setRemainder(FileUtils.getValueFromXLSXColumn(remainder, row));
+                position.setVolume(FileUtils.getValueFromXLSXColumn(volume, row));
+                position.setReleaseYear(FileUtils.getValueFromXLSXColumn(releaseYear, row));
+                position.setMaker(FileUtils.getValueFromXLSXColumn(maker, row));
+                position.setFvProductName(FileUtils.getValueFromXLSXColumn(fvProductName, row));
+                position.setFvVendorCode(FileUtils.getValueFromXLSXColumn(fvVendorCode, row));
+
+                if (!position.getPrice().isEmpty() && !position.getProductName().isEmpty() && NumberUtils.isParsable(position.getPrice().replaceAll("\\s+","")))
+                    save(position);
             }
         } catch (FileNotFoundException exception) {
             logger.info("File not found");
