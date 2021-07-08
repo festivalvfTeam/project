@@ -1,11 +1,11 @@
 
+g
+java:S2095O"JUse try-with-resources or close this "HSSFWorkbook" in a "finally" clause.(®ˆÎƒ8•ã”§/
 U
 java:S1854O"8Remove this useless assignment to local variable "book".(®ˆÎƒ8•ã”§/
 H
 java:S1075I"&Remove this hard-coded path-delimiter.(»„•Âÿÿÿÿÿ8•ã”§/
-]	java:S125M"<This block of commented-out lines of code should be removed.(‰ûË¸úÿÿÿÿ8–¹´´§/
-g
-java:S2095O"JUse try-with-resources or close this "HSSFWorkbook" in a "finally" clause.(®ˆÎƒ8•ã”§/
-m	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÕàŞ8•ã”§/
 F
 java:S1481O")Remove this unused "book" local variable.(®ˆÎƒ8•ã”§/
+m	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÕàŞ8ğø™İ§/
+]	java:S125M"<This block of commented-out lines of code should be removed.(‰ûË¸úÿÿÿÿ8îß§/

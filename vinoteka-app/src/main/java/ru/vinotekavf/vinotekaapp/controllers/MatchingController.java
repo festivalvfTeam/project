@@ -6,6 +6,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,8 +45,14 @@ public class MatchingController {
         return "main";
     }
 
-    @PostMapping("match_positions/{id_provider}")
-    public String matchProducts(@PathVariable Long id_provider,
+    @GetMapping("provider/{provider}")
+    public String editPositions(@PathVariable Provider provider, Model model) {
+        model.addAttribute("provider", provider);
+        return "matchPositions";
+    }
+
+    @PostMapping("provider/{provider}")
+    public String matchProducts(@PathVariable Provider provider,
                                 @RequestParam("file") MultipartFile file,
                                 @RequestParam("productName") String productName,
                                 @RequestParam("vendorCode") String vendorCode,
@@ -68,20 +76,20 @@ public class MatchingController {
             Integer[] makerCols = ControllerUtils.getIntCols(maker);
 
             Path path = ControllerUtils.writeInDirectoryAndGetPath(file, uploadPath);
-            Provider provider = providerService.getProviderById(id_provider);
+            //Provider curProvider = providerService.getProviderById(provider);
 
             file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
             if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
-                /*positionService.readXLSXAndWriteInDb(path.toString(), provider, vendorCode, productName, volume, releaseYear, price, promotionalPrice,
-                    remainder, maker);*/
-                //XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
+                positionService.readXLSXAndWriteInDb(path.toString(), provider, vendorCode, productName, volume, releaseYear, price, promotionalPrice,
+                    remainder, maker);
             } else if (file.getOriginalFilename().contains("xls")) {
-                HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(uploadPath + "/" + file.getOriginalFilename()));
+                positionService.readXLSAndWriteInDb(path.toString(), provider, vendorCode, productName, volume, releaseYear, price, promotionalPrice,
+                    remainder, maker);
             } else if (file.getOriginalFilename().contains(".csv")) {
                 positionService.readCSVAndWriteInDb(path.toString(), "windows-1251", provider,
                         vendorCodeCols, productNameCols, volumeCols, releaseYearCols, priceCols, promotionalPriceCols, remainderCols, makerCols);
             }
         }
-        return "testingMatch";
+        return "matchPositions";
     }
 }

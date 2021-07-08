@@ -21,6 +21,7 @@ import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
@@ -80,10 +81,14 @@ public class InitDBController {
                     position.setMaker(FileUtils.getValueFromXLSXColumn(maker, row));
                     position.setFvProductName(FileUtils.getValueFromXLSXColumn(fvProductName, row));
                     position.setFvVendorCode(FileUtils.getValueFromXLSXColumn(fvVendorCode, row));
+                    position.setLastChange(Calendar.getInstance().getTimeInMillis());
 
-                    providerService.save(curProvider);
-                    position.setProvider(curProvider);
-                    positionService.save(position);
+                    if (!curProvider.getName().equals("Название компании") && !position.getProductName().equals("Полное наименование")) {
+                        providerService.save(curProvider);
+                        Provider provider1 = providerService.getProviderByName(curProvider.getName());
+                        position.setProvider(provider1);
+                        positionService.save(position);
+                    }
                 }
                 book.close();
             }

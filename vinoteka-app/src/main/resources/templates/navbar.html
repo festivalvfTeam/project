@@ -19,13 +19,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" >
-                <a class="nav-link" href="/user/profile" sec:authorize="isAuthenticated()">Список компаний</a>
-            </li>
-            <li class="nav-item" >
-                <a class="nav-link" href="/timeTracking" sec:authorize="isAuthenticated()">Добавить компанию</a>
+                <a class="nav-link" href="/newProvider" sec:authorize="isAuthenticated()">Добавить компанию</a>
             </li>
             <li class="nav-item" >
                 <a class="nav-link" href="/testingMatch" sec:authorize="isAuthenticated()">Тестовое сопоставление</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" href="/registration" sec:authorize="hasAuthority('ADMIN')">Регистрация пользователя</a>
             </li>
         </ul>
         <div class="d-flex flex-row-reverse">

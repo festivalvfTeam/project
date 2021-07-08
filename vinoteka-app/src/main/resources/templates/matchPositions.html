@@ -15,7 +15,7 @@
 <div th:insert="~{navbar :: navbar}"></div>
 
 <div class="container">
-    <form method="post" enctype="multipart/form-data" th:action="@{/testingMatch}">
+    <form method="post" enctype="multipart/form-data" th:action="@{/provider/{id}(id = ${provider.id})}">
     <div class="main-body">
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -26,6 +26,16 @@
                                 <h4>
                                     <span>Карточка компании</span>
                                 </h4>
+
+                                <p class="text-secondary mb-1">
+                                    <span class="border-line" th:text="${provider.getName()}"/>
+                                </p>
+                                <p class="text-muted font-size-sm">
+                                    <span class="border-line" th:text="${provider.getManagerName()}"/>
+                                </p>
+                                <p class="text-muted font-size-sm">
+                                    <span class="border-line" th:text="${provider.getPhone()}"/>
+                                </p>
                                 <label for="file-upload" class="custom-file-upload">
                                     <i class="fa fa-cloud-upload"></i> Загрузить прайс
                                 </label>
@@ -44,33 +54,6 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Название компании</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input name="provider" class="border-none col-sm-9" th:value="${provider}"/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Номер телефона</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input name="phone" class="border-none col-sm-9" th:value="${phone}"/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Имя менеджера</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input name="managerName" class="border-none col-sm-9" th:value="${managerName}"/>
-                            </div>
-                        </div>
-                        <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Поле "Наименование"</h6>
@@ -140,24 +123,6 @@
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input name="releaseYear" class="border-none col-sm-9" th:value="${releaseYear}"/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Поле "Артикул ФВ"</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input name="fvVendorCode" class="border-none col-sm-9" th:value="${fvVendorCode}"/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Поле "Наименование ФВ"</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input name="fvProductName" class="border-none col-sm-9" th:value="${fvProductName}"/>
                             </div>
                         </div>
                     </div>

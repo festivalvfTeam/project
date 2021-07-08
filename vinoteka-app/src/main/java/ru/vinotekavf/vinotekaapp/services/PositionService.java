@@ -2,7 +2,11 @@ package ru.vinotekavf.vinotekaapp.services;
 
 import au.com.bytecode.opencsv.*;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -22,10 +26,10 @@ import ru.vinotekavf.vinotekaapp.utils.FileUtils;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.sql.*;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
 public class PositionService {
@@ -46,10 +50,14 @@ public class PositionService {
             "join posit po on pr.id = po.provider_id";
 
     public void save(Position position) {
-        Position positionFromDb = positionRepository.findByFvVendorCode(position.getFvVendorCode());
+        List<Position> positionList = positionRepository.findPositionList(position.getProvider(), position.getVendorCode(), position.getProductName(),
+            position.getVolume(), position.getReleaseYear());
+        positionList.sort(Comparator.comparing(Position::getLastChange));
+        Long curTime = Calendar.getInstance().getTimeInMillis();
 
-        if (isNotEmpty(positionFromDb)) {
-            positionFromDb.setProvider(position.getProvider());
+         if (!positionList.isEmpty() && curTime - positionList.get(0).getLastChange() > 60000) {
+             Position positionFromDb = positionList.get(0);
+
             positionFromDb.setVendorCode(position.getVendorCode());
             positionFromDb.setProductName(position.getProductName());
             positionFromDb.setVolume(position.getVolume());
@@ -58,7 +66,7 @@ public class PositionService {
             positionFromDb.setPromotionalPrice(position.getPromotionalPrice());
             positionFromDb.setRemainder(position.getRemainder());
             positionFromDb.setMaker(position.getMaker());
-            positionFromDb.setFvProductName(position.getFvProductName());
+            positionFromDb.setLastChange(Calendar.getInstance().getTimeInMillis());
             positionRepository.save(positionFromDb);
         } else {
             positionRepository.save(position);
@@ -156,7 +164,7 @@ public class PositionService {
     }
 
     public void readXLSXAndWriteInDb(String filePath, Provider provider, String vendorCode, String productName, String volume, String releaseYear,
-        String price, String promotionalPrice, String remainder, String maker, String fvProductName, String fvVendorCode) {
+        String price, String promotionalPrice, String remainder, String maker) {
         try (XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(filePath))) {
             XSSFSheet sheet = book.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.rowIterator();
@@ -173,8 +181,38 @@ public class PositionService {
                 position.setVolume(FileUtils.getValueFromXLSXColumn(volume, row));
                 position.setReleaseYear(FileUtils.getValueFromXLSXColumn(releaseYear, row));
                 position.setMaker(FileUtils.getValueFromXLSXColumn(maker, row));
-                position.setFvProductName(FileUtils.getValueFromXLSXColumn(fvProductName, row));
-                position.setFvVendorCode(FileUtils.getValueFromXLSXColumn(fvVendorCode, row));
+                position.setLastChange(Calendar.getInstance().getTimeInMillis());
+
+                if (!position.getPrice().isEmpty() && !position.getProductName().isEmpty() && NumberUtils.isParsable(position.getPrice().replaceAll("\\s+","")))
+                    save(position);
+            }
+        } catch (FileNotFoundException exception) {
+            logger.info("File not found");
+            logger.error(exception.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readXLSAndWriteInDb(String filePath, Provider provider, String vendorCode, String productName, String volume, String releaseYear,
+        String price, String promotionalPrice, String remainder, String maker) {
+        try (HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(filePath))) {
+            HSSFSheet sheet = book.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.rowIterator();
+            while (rowIterator.hasNext()) {
+                HSSFRow row = (HSSFRow) rowIterator.next();
+                Position position = new Position();
+                position.setProvider(provider);
+
+                position.setProductName(FileUtils.getValueFromXLSColumn(productName, row));
+                position.setVendorCode(FileUtils.getValueFromXLSColumn(vendorCode, row));
+                position.setPrice(FileUtils.getValueFromXLSColumn(price, row));
+                position.setPromotionalPrice(FileUtils.getValueFromXLSColumn(promotionalPrice, row));
+                position.setRemainder(FileUtils.getValueFromXLSColumn(remainder, row));
+                position.setVolume(FileUtils.getValueFromXLSColumn(volume, row));
+                position.setReleaseYear(FileUtils.getValueFromXLSColumn(releaseYear, row));
+                position.setMaker(FileUtils.getValueFromXLSColumn(maker, row));
+                position.setLastChange(Calendar.getInstance().getTimeInMillis());
 
                 if (!position.getPrice().isEmpty() && !position.getProductName().isEmpty() && NumberUtils.isParsable(position.getPrice().replaceAll("\\s+","")))
                     save(position);

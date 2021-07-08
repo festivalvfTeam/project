@@ -3,6 +3,7 @@ package ru.vinotekavf.vinotekaapp.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -12,7 +13,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
@@ -24,6 +25,7 @@ public class Position {
     private String promotionalPrice;//цена по скидке/акции
     private String remainder;//остаток
     private String maker;
+    private Long lastChange;
 
     //артикул в Festival Vin
     private String fvVendorCode;

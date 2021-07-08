@@ -25,4 +25,8 @@ public class ProviderService {
     public Provider getProviderById(Long id) {
         return providerRepository.findById(id).orElse(null);
     }
+
+    public Provider getProviderByName(String name) {
+        return providerRepository.findByName(name);
+    }
 }

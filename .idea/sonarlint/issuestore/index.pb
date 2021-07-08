@@ -43,12 +43,6 @@ c
 0vinoteka-app/src/main/resources/static/input.css,3\2\321b60a8d9fff8121a8ef62ed06128c6207bb6b0
 b
 2vinoteka-app/src/main/resources/static/profile.css,7\2\72612097e5e87b8682da98a38fc3a6dcb78549d2
-d
-4vinoteka-app/src/main/resources/templates/login.html,8\0\80a618a9bb9e06938840489778593f7eb2f15657
-e
-5vinoteka-app/src/main/resources/templates/navbar.html,c\0\c0239f4c29353a80c0935c5270ab6665a54258f7
-k
-;vinoteka-app/src/main/resources/templates/registration.html,1\a\1aeb9a256bd0dd6fff1887a5390811238ef97b25
 ‚
 Rvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/repos/PositionRepository.java,7\0\7001f5b50c9016487319ad579a76c7ca91b4c19a
 ‚
