@@ -27,6 +27,9 @@
             <li class="nav-item" >
                 <a class="nav-link" href="/registration" sec:authorize="hasAuthority('ADMIN')">Регистрация пользователя</a>
             </li>
+            <li class="nav-item" >
+                <a class="nav-link" href="/positionSearch" sec:authorize="isAuthenticated()">Поиск позиции</a>
+            </li>
         </ul>
         <div class="d-flex flex-row-reverse">
             <div class="navbar-text p-2" sec:authentication="name"></div>

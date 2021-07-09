@@ -21,4 +21,6 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
     @Query("from Position p where p.provider = :provider and p.vendorCode = :vendorCode and p.productName = :productName and p.volume = :volume " +
         "and p.releaseYear = :releaseYear")
     List<Position> findPositionList(Provider provider, String vendorCode, String productName, String volume, String releaseYear);
+
+    List<Position> findAllByVendorCode(String vendorCode);
 }

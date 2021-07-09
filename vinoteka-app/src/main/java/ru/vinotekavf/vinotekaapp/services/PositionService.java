@@ -224,4 +224,8 @@ public class PositionService {
             e.printStackTrace();
         }
     }
+
+    public List<Position> findByVendorCode(String vendorCode) {
+        return positionRepository.findAllByVendorCode(vendorCode);
+    }
 }
