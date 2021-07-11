@@ -4,6 +4,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
+import ru.vinotekavf.vinotekaapp.repos.PositionRepository;
 import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
 
 import java.util.List;
@@ -13,8 +14,16 @@ public class ProviderService {
     @Autowired
     private ProviderRepository providerRepository;
 
+    @Autowired
+    private PositionRepository positionRepository;
+
     public List<Provider> getAll() {
         return providerRepository.findAll();
+    }
+
+    public void delete(Provider provider) {
+        positionRepository.deleteAllByProvider(provider);
+        providerRepository.delete(provider);
     }
 
     public void save(Provider provider) {
@@ -26,6 +35,10 @@ public class ProviderService {
         } else {
             providerRepository.save(provider);
         }
+    }
+
+    public List<Provider> getProvidersWithFilter (String filter) {
+        return providerRepository.findAllByNameContaining(filter);
     }
 
     public Provider getProviderById(Long id) {

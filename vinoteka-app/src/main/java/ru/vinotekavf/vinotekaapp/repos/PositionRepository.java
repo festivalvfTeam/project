@@ -23,4 +23,8 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
     List<Position> findPositionList(Provider provider, String vendorCode, String productName, String volume, String releaseYear);
 
     List<Position> findAllByVendorCode(String vendorCode);
+
+    void deleteAllByProvider(Provider provider);
+
+    List<Position> findAllByProvider(Provider provider);
 }

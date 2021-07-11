@@ -77,6 +77,10 @@ public class PositionService {
         return positionRepository.findAll();
     }
 
+    public List<Position> findAllByProvider (Provider provider) {
+        return positionRepository.findAllByProvider(provider);
+    }
+
     public void writeAllPositionsInCSV() {
         String CSV_FILE_PATH = "src/main/resources/files/data.csv";
         try (Connection connection = DriverManager.getConnection(URL_DB, "postgres", "5842");

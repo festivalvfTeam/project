@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.services.PositionService;
@@ -31,13 +28,13 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
-    @GetMapping("provider/{provider}")
+    @GetMapping("providers/{provider}")
     public String editPositions(@PathVariable Provider provider, Model model) {
         model.addAttribute("provider", provider);
         return "matchPositions";
     }
 
-    @PostMapping("provider/{provider}")
+    @PostMapping("providers/{provider}")
     public String matchProducts(@PathVariable Provider provider,
                                 @RequestParam("file") MultipartFile file,
                                 @RequestParam("productName") String productName,
@@ -79,6 +76,23 @@ public class ProviderController {
         return "matchPositions";
     }
 
+    @DeleteMapping("providers/{provider}")
+    public String deleteProvider(@PathVariable Provider provider,
+                                 Model model
+    ) {
+        providerService.delete(provider);
+        model.addAttribute("providers", providerService.getAll());
+        return "main";
+    }
+
+    @GetMapping("providers/{provider}/allPositions")
+    public String getProviderPositions(@PathVariable Provider provider,
+                                 Model model
+    ) {
+        model.addAttribute("positions", positionService.findAllByProvider(provider));
+        return "searchPosition";
+    }
+
     @GetMapping("/newProvider")
     public String regNewProvider(){
         return "newProvider";
@@ -92,6 +106,14 @@ public class ProviderController {
     ) {
         providerService.save(new Provider(providerName, phone, managerName));
         model.addAttribute("providers", providerService.getAll());
+        return "main";
+    }
+
+    @PostMapping("/providerSearch")
+    public String searchProvider(@RequestParam("searchRequest") String searchRequest,
+                                 Model model
+    ) {
+        model.addAttribute("providers", providerService.getProvidersWithFilter(searchRequest));
         return "main";
     }
 }
