@@ -6,10 +6,16 @@ import org.springframework.stereotype.Service;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
 
+import java.util.List;
+
 @Service
 public class ProviderService {
     @Autowired
     private ProviderRepository providerRepository;
+
+    public List<Provider> getAll() {
+        return providerRepository.findAll();
+    }
 
     public void save(Provider provider) {
         Provider providerFromDb = providerRepository.findByName(provider.getName());

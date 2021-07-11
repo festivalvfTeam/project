@@ -12,10 +12,11 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "usr")
+@SequenceGenerator(name = "usr_seq", sequenceName = "usr_seq",  initialValue = 10)
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "usr_seq")
     private Long id;
 
     @Column(unique = true)

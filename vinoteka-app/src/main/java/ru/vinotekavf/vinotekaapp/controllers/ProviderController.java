@@ -1,8 +1,5 @@
 package ru.vinotekavf.vinotekaapp.controllers;
 
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,15 +15,13 @@ import ru.vinotekavf.vinotekaapp.services.ProviderService;
 import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 @Controller
-public class MatchingController {
-
+public class ProviderController {
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -35,15 +30,6 @@ public class MatchingController {
 
     @Autowired
     private ProviderService providerService;
-
-    @PostMapping("/match_provider")
-    public String matchProvider(@RequestParam("providerName") String providerName,
-                                @RequestParam("phone") String phone,
-                                @RequestParam("managerName") String managerName
-    ) {
-        providerService.save(new Provider(providerName, phone, managerName));
-        return "main";
-    }
 
     @GetMapping("provider/{provider}")
     public String editPositions(@PathVariable Provider provider, Model model) {
@@ -62,7 +48,7 @@ public class MatchingController {
                                 @RequestParam("volume") String volume,
                                 @RequestParam("releaseYear") String releaseYear,
                                 @RequestParam("maker") String maker
-        ) throws IOException {
+    ) throws IOException {
 
         if (isNotEmpty(file)) {
 
@@ -81,15 +67,31 @@ public class MatchingController {
             file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
             if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
                 positionService.readXLSXAndWriteInDb(path.toString(), provider, vendorCode, productName, volume, releaseYear, price, promotionalPrice,
-                    remainder, maker);
+                        remainder, maker);
             } else if (file.getOriginalFilename().contains("xls")) {
                 positionService.readXLSAndWriteInDb(path.toString(), provider, vendorCode, productName, volume, releaseYear, price, promotionalPrice,
-                    remainder, maker);
+                        remainder, maker);
             } else if (file.getOriginalFilename().contains(".csv")) {
                 positionService.readCSVAndWriteInDb(path.toString(), "windows-1251", provider,
                         vendorCodeCols, productNameCols, volumeCols, releaseYearCols, priceCols, promotionalPriceCols, remainderCols, makerCols);
             }
         }
         return "matchPositions";
+    }
+
+    @GetMapping("/newProvider")
+    public String regNewProvider(){
+        return "newProvider";
+    }
+
+    @PostMapping("/newProvider")
+    public String addNewProvider(@RequestParam("providerName") String providerName,
+                                 @RequestParam("phone") String phone,
+                                 @RequestParam("managerName") String managerName,
+                                 Model model
+    ) {
+        providerService.save(new Provider(providerName, phone, managerName));
+        model.addAttribute("providers", providerService.getAll());
+        return "main";
     }
 }
