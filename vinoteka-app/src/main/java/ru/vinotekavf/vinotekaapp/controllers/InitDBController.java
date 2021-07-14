@@ -96,7 +96,6 @@ public class InitDBController {
         return"redirect:/";
     }
 
-
    @GetMapping("testingMatch")
     public String getTestingMatch() {
         return "testingMatch";

@@ -10,4 +10,8 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
     Provider findByName(String name);
 
     List<Provider> findAllByNameContaining(String filter);
+
+    List<Provider> findByIsActiveTrue();
+
+    List<Provider> findByIsActiveFalse();
 }

@@ -21,6 +21,12 @@ public class ProviderService {
         return providerRepository.findAll();
     }
 
+    public List<Provider> getAllActive() {
+        return providerRepository.findByIsActiveTrue();
+    }
+
+    public List<Provider> getAllDisabled() { return providerRepository.findByIsActiveFalse(); }
+
     public void delete(Provider provider) {
         positionRepository.deleteAllByProvider(provider);
         providerRepository.delete(provider);
@@ -47,5 +53,12 @@ public class ProviderService {
 
     public Provider getProviderByName(String name) {
         return providerRepository.findByName(name);
+    }
+
+    public Provider changeProviderStatus(Long id) {
+        Provider provider = providerRepository.findById(id).orElse(new Provider());
+        provider.setActive(!provider.isActive());
+        providerRepository.save(provider);
+        return provider;
     }
 }

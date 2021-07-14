@@ -15,8 +15,7 @@ public class PositionController {
     private PositionService positionService;
 
     @PostMapping("/positionSearchFilter")
-    public String positionSearch(@RequestParam("vendorCodeFilter") String vendorCodeFilter,
-                                 Model model) {
+    public String positionSearch(@RequestParam("vendorCodeFilter") String vendorCodeFilter, Model model) {
         model.addAttribute("positions", positionService.findByVendorCode(vendorCodeFilter));
         return "searchPosition";
     }

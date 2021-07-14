@@ -18,6 +18,7 @@ public class Provider {
     private String name;
     private String phone;
     private String managerName;
+    private boolean isActive;
 
     public Provider() {
     }
@@ -26,5 +27,6 @@ public class Provider {
         this.name = name;
         this.phone = phone;
         this.managerName = managerName;
+        this.isActive = true;
     }
 }

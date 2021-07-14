@@ -59,7 +59,6 @@ public class ProviderController {
             Integer[] makerCols = ControllerUtils.getIntCols(maker);
 
             Path path = ControllerUtils.writeInDirectoryAndGetPath(file, uploadPath);
-            //Provider curProvider = providerService.getProviderById(provider);
 
             file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
             if (file.getOriginalFilename().contains("xlsx") || file.getOriginalFilename().contains("xlsm")) {
@@ -76,19 +75,20 @@ public class ProviderController {
         return "matchPositions";
     }
 
-    @DeleteMapping("providers/{provider}")
-    public String deleteProvider(@PathVariable Provider provider,
-                                 Model model
-    ) {
-        providerService.delete(provider);
-        model.addAttribute("providers", providerService.getAll());
-        return "main";
+    @PostMapping("providers/changeStatus")
+    public String deleteProvider(@RequestParam Long providerId, Model model) {
+        Provider provider = providerService.changeProviderStatus(providerId);
+        if (!provider.isActive()) {
+            model.addAttribute("providers", providerService.getAllActive());
+            return "main";
+        } else {
+            model.addAttribute("providers", providerService.getAllDisabled());
+            return "disabledProviders";
+        }
     }
 
-    @GetMapping("providers/{provider}/allPositions")
-    public String getProviderPositions(@PathVariable Provider provider,
-                                 Model model
-    ) {
+    @GetMapping("providers/allPositions/{provider}")
+    public String getProviderPositions(@PathVariable Provider provider, Model model) {
         model.addAttribute("positions", positionService.findAllByProvider(provider));
         return "searchPosition";
     }
@@ -105,15 +105,19 @@ public class ProviderController {
                                  Model model
     ) {
         providerService.save(new Provider(providerName, phone, managerName));
-        model.addAttribute("providers", providerService.getAll());
+        model.addAttribute("providers", providerService.getAllActive());
         return "main";
     }
 
     @PostMapping("/providerSearch")
-    public String searchProvider(@RequestParam("searchRequest") String searchRequest,
-                                 Model model
-    ) {
+    public String searchProvider(@RequestParam("searchRequest") String searchRequest, Model model) {
         model.addAttribute("providers", providerService.getProvidersWithFilter(searchRequest));
         return "main";
+    }
+
+    @GetMapping("/disabledProviders")
+    public String getDisabled(Model model) {
+        model.addAttribute("providers", providerService.getAllDisabled());
+        return "disabledProviders";
     }
 }

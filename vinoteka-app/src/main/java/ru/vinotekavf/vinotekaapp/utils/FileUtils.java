@@ -47,13 +47,13 @@ public class FileUtils {
                     if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_STRING) {
                         return cellWithValue.getStringCellValue();
                     } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_NUMERIC) {
-                        return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                        return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).stripTrailingZeros().toPlainString();
                     } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_FORMULA) {
                         switch (cellWithValue.getCachedFormulaResultType()) {
                             case CELL_TYPE_STRING:
                                 return cellWithValue.getRichStringCellValue().getString();
                             case CELL_TYPE_NUMERIC:
-                                return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                                return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).stripTrailingZeros().toPlainString();
                             default:
                                 return "";
                         }
@@ -77,13 +77,13 @@ public class FileUtils {
                     if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_STRING) {
                         return cellWithValue.getStringCellValue();
                     } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_NUMERIC) {
-                        return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                        return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).stripTrailingZeros().toPlainString();
                     } else if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_FORMULA) {
                         switch (cellWithValue.getCachedFormulaResultType()) {
                             case CELL_TYPE_STRING:
                                 return cellWithValue.getRichStringCellValue().getString();
                             case CELL_TYPE_NUMERIC:
-                                return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).toPlainString();
+                                return BigDecimal.valueOf(cellWithValue.getNumericCellValue()).stripTrailingZeros().toPlainString();
                             default:
                                 return "";
                         }
