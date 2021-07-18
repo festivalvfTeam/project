@@ -1,0 +1,22 @@
+
+U	java:S106Q"9Replace this use of System.out or System.err by a logger.(ÆÀûı8óÛÎ¦/
+U	java:S106A"9Replace this use of System.out or System.err by a logger.(ùÖğÓ8óÛÎ¦/
+Z	java:S106U"9Replace this use of System.out or System.err by a logger.(¡ˆ¥şÿÿÿÿ8óÛÎ¦/
+T	java:S106X"9Replace this use of System.out or System.err by a logger.(Çğõ"8óÛÎ¦/
+G
+java:S1181Z"%Catch Exception instead of Throwable.(‡˜ÚÚøÿÿÿÿ8óÛÎ¦/
+U	java:S106L"9Replace this use of System.out or System.err by a logger.(¹°®„8óÛÎ¦/
+Z	java:S106["9Replace this use of System.out or System.err by a logger.(×›£¾üÿÿÿÿ8óÛÎ¦/
+g	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(Šğ®…úÿÿÿÿ8óÛÎ¦/
+Z
+java:S11970"8Move the array designator from the variable to the type.(¡şÏÖøÿÿÿÿ8óÛÎ¦/
+Z	java:S1063"9Replace this use of System.out or System.err by a logger.(ô›¶¿şÿÿÿÿ8óÛÎ¦/
+Z	java:S1061"9Replace this use of System.out or System.err by a logger.(ªõ»ùÿÿÿÿ8óÛÎ¦/
+Q
+java:S1066P"/Merge this if statement with the enclosing one.(§ıíÍüÿÿÿÿ8óÛÎ¦/
+k
+java:S2095o"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(„õ½‰8óÛÎ¦/
+E
+java:S1148\"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8óÛÎ¦/
+L
+java:S2093;"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8óÛÎ¦/
