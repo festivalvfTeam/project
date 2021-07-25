@@ -27,4 +27,7 @@ public interface PositionRepository extends JpaRepository<Position, Long> {
     void deleteAllByProvider(Provider provider);
 
     List<Position> findAllByProvider(Provider provider);
+
+    @Query("from Position p where p.isActive = true order by p.provider.name, p.productName")
+    List<Position> findAllByIsActiveTrueOrderByProviderAscProductNameAsc();
 }

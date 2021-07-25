@@ -11,7 +11,7 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
 
     List<Provider> findAllByNameContaining(String filter);
 
-    List<Provider> findByIsActiveTrue();
+    List<Provider> findByIsActiveTrueOrderByName();
 
-    List<Provider> findByIsActiveFalse();
+    List<Provider> findByIsActiveFalseOrderByName();
 }

@@ -41,7 +41,7 @@ public class FileUtils {
 
         for (String str : columns) {
             if (isNotBlank(str)) {
-                XSSFCell cell = row.getCell(ExcelColumns.valueOf(str).ordinal());
+                XSSFCell cell = row.getCell(ExcelColumns.valueOf(str.toUpperCase()).ordinal());
                 if (isNotEmpty(cell)) {
                     XSSFCell cellWithValue = getValuableXSSFCellFromMerged(row.getSheet(), cell);
                     if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_STRING) {
@@ -71,7 +71,7 @@ public class FileUtils {
 
         for (String str : columns) {
             if (isNotBlank(str)) {
-                HSSFCell cell = row.getCell(ExcelColumns.valueOf(str).ordinal());
+                HSSFCell cell = row.getCell(ExcelColumns.valueOf(str.toUpperCase()).ordinal());
                 if (isNotEmpty(cell)) {
                     HSSFCell cellWithValue = getValuableHSSFCellFromMerged(row.getSheet(), cell);
                     if (isNotEmpty(cellWithValue) && cellWithValue.getCellType() == CELL_TYPE_STRING) {

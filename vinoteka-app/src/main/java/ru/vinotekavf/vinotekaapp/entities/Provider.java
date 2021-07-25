@@ -1,11 +1,14 @@
 package ru.vinotekavf.vinotekaapp.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.builder.HashCodeExclude;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude="positions")
 @Entity
 public class Provider {
     @Id
@@ -21,6 +24,7 @@ public class Provider {
     private boolean isActive;
 
     public Provider() {
+        isActive = true;
     }
 
     public Provider(String name, String phone, String managerName) {

@@ -22,7 +22,7 @@ public class PositionController {
 
     @GetMapping("/positionSearch")
     public String getAllPositions(Model model) {
-        model.addAttribute("positions", positionService.findAll());
+        model.addAttribute("positions", positionService.getAllActive());
         return "searchPosition";
     }
 }
