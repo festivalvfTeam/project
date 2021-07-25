@@ -22,6 +22,7 @@
     <form th:action="@{/positionSearchFilter}" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
       <input name="vendorCodeFilter" type="search" class="form-control form-control-dark mt-3" placeholder="Поиск по артикулу" aria-label="Search">
     </form>
+    <a class="btn btn-primary" role="button" th:href="@{/positionSearch}">Весь список</a>
   </div>
   <form th:action="@{/tableChange}" method="post">
     <table class="table table-borderless table-striped caption-top">
