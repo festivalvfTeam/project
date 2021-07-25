@@ -2,7 +2,6 @@ package ru.vinotekavf.vinotekaapp.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.lang3.builder.HashCodeExclude;
 
 import javax.persistence.*;
 import java.util.Set;

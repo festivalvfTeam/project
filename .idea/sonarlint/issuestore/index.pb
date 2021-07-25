@@ -63,3 +63,5 @@ m
 Xvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/PositionController.java,1\7\174967fcb4948f4df0e5994b2eccb70d03a31b9c
 ˆ
 Xvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/ProviderController.java,e\2\e2b01a8418956f52076435e54048007e439bbf0e
+m
+=vinoteka-app/src/main/resources/templates/searchPosition.html,2\8\2840ddacd79894584ae9c9ceb944c9aa1390704d

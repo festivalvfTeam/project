@@ -68,6 +68,9 @@ public class InitDBController {
                     Position position = new Position();
 
                     curProvider.setName(FileUtils.getValueFromXLSXColumn(provider, row));
+                    if (curProvider.getName().isEmpty() || curProvider.getName().equals("Название компании")) {
+                        continue;
+                    }
                     curProvider.setPhone(FileUtils.getValueFromXLSXColumn(phone, row));
                     curProvider.setManagerName(FileUtils.getValueFromXLSXColumn(managerName, row));
 
@@ -83,17 +86,15 @@ public class InitDBController {
                     position.setFvVendorCode(FileUtils.getValueFromXLSXColumn(fvVendorCode, row));
                     position.setLastChange(Calendar.getInstance().getTimeInMillis());
 
-                    if (!curProvider.getName().equals("Название компании") && !position.getProductName().equals("Полное наименование")) {
-                        providerService.save(curProvider);
-                        Provider provider1 = providerService.getProviderByName(curProvider.getName());
-                        position.setProvider(provider1);
-                        positionService.save(position);
-                    }
+                    providerService.save(curProvider);
+                    Provider provider1 = providerService.getProviderByName(curProvider.getName());
+                    position.setProvider(provider1);
+                    positionService.save(position);
                 }
                 book.close();
             }
         }
-        return"redirect:/";
+        return "redirect:/";
     }
 
    @GetMapping("testingMatch")
