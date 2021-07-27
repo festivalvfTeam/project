@@ -2,7 +2,6 @@ package ru.vinotekavf.vinotekaapp.services;
 
 import au.com.bytecode.opencsv.*;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -27,9 +26,6 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.sql.*;
 import java.util.*;
-
-import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
 public class PositionService {
@@ -75,6 +71,10 @@ public class PositionService {
 
     public List<Position> findAll() {
         return positionRepository.findAll();
+    }
+
+    public List<Position> getAllActive() {
+        return positionRepository.findAllByIsActiveTrueOrderByProviderAscProductNameAsc();
     }
 
     public List<Position> findAllByProvider (Provider provider) {

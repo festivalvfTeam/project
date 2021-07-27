@@ -28,7 +28,7 @@ public class ControllerUtils {
         return Arrays.stream(columns.split(",")).map(str ->
                 {
                     if (StringUtils.isNotBlank(str))
-                        return ExcelColumns.valueOf(str).ordinal();
+                        return ExcelColumns.valueOf(str.toUpperCase()).ordinal();
                     return -1;
                 }
         ).toArray(Integer[]::new);

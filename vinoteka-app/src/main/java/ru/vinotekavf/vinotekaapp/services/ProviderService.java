@@ -3,6 +3,7 @@ package ru.vinotekavf.vinotekaapp.services;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vinotekavf.vinotekaapp.entities.Position;
 import ru.vinotekavf.vinotekaapp.entities.Provider;
 import ru.vinotekavf.vinotekaapp.repos.PositionRepository;
 import ru.vinotekavf.vinotekaapp.repos.ProviderRepository;
@@ -22,10 +23,10 @@ public class ProviderService {
     }
 
     public List<Provider> getAllActive() {
-        return providerRepository.findByIsActiveTrue();
+        return providerRepository.findByIsActiveTrueOrderByName();
     }
 
-    public List<Provider> getAllDisabled() { return providerRepository.findByIsActiveFalse(); }
+    public List<Provider> getAllDisabled() { return providerRepository.findByIsActiveFalseOrderByName(); }
 
     public void delete(Provider provider) {
         positionRepository.deleteAllByProvider(provider);
@@ -58,6 +59,9 @@ public class ProviderService {
     public Provider changeProviderStatus(Long id) {
         Provider provider = providerRepository.findById(id).orElse(new Provider());
         provider.setActive(!provider.isActive());
+        for (Position position : provider.getPositions()){
+            position.setActive(!position.isActive());
+        }
         providerRepository.save(provider);
         return provider;
     }

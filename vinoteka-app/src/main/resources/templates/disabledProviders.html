@@ -44,7 +44,7 @@
                 <td><button type="submit" class="btn btn-primary">Восстановить</button></td>
             </form>
             <td><a class="btn btn-primary" role="button" th:href="@{/providers/allPositions/{id}(id = ${provider.id})}">Просмотреть все позиции поставщика</a></td>
-            <td><a class="btn btn-primary" role="button" th:href="@{/providers/{id}(id = ${provider.id})}">Удалить</a></td>
+            <td><a class="btn btn-primary" role="button" th:href="@{/delete/{id}(id = ${provider.id})}">Удалить</a></td>
         </tr>
         </tbody>
     </table>

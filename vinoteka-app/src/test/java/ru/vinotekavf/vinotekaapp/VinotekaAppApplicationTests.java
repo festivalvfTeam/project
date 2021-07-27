@@ -13,7 +13,8 @@ class VinotekaAppApplicationTests {
 
 	@Test
 	void contextLoads() {
-		positionService.writeAllPositionsInCSV();
+		//positionService.writeAllPositionsInCSV();
+		positionService.writeAllPositionsInCSVByDTO();
 	}
 
 }

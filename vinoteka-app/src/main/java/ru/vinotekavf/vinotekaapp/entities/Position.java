@@ -1,11 +1,13 @@
 package ru.vinotekavf.vinotekaapp.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
+@EqualsAndHashCode(exclude="provider")
 @Entity
 @Table(name = "posit")
 public class Position {
@@ -16,6 +18,8 @@ public class Position {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "provider_id")
     private Provider provider;
+
+    private boolean isActive;
 
     private String vendorCode;//артикул
     private String productName;
@@ -30,6 +34,10 @@ public class Position {
     //артикул в Festival Vin
     private String fvVendorCode;
     private String fvProductName;
+
+    public Position() {
+        isActive = true;
+    }
 
     public void addVendorCode(String vendorCode) {
         if (this.vendorCode == null || this.vendorCode.isEmpty())

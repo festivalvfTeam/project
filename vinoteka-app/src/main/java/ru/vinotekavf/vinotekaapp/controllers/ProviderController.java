@@ -120,4 +120,10 @@ public class ProviderController {
         model.addAttribute("providers", providerService.getAllDisabled());
         return "disabledProviders";
     }
+
+    @GetMapping("/delete/{provider}")
+    public String deleteProvider(@PathVariable Provider provider) {
+        providerService.delete(provider);
+        return "redirect:/disabledProviders";
+    }
 }
