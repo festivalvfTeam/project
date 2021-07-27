@@ -1,5 +1,7 @@
 
 b
-java:S4684A"@Replace this persistent entity with a simple POJO or DTO object.(―άªτÿÿÿÿÿ8µΖÿ§/
+java:S4684N"@Replace this persistent entity with a simple POJO or DTO object.(―άªτÿÿÿÿÿ8Ϊ§μό­/
+D
+java:S1075"&Remove this hard-coded path-delimiter.(Λ•²†8Ρª‘—®/
 o
-java:S1192:"MDefine a constant instead of duplicating this literal "registration" 3 times.(“‘ψÿÿÿÿ8µΖÿ§/
+java:S1192G"MDefine a constant instead of duplicating this literal "registration" 3 times.(“‘ψÿÿÿÿ8Ϊ§μό­/

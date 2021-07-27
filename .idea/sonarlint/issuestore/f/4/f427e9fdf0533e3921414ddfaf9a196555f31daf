@@ -1,0 +1,22 @@
+
+o
+java:S3776u"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(»½½Ø8«áµ©/
+F
+java:S1148Å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8«áµ©/
+Y	java:S107u"=Method has 11 parameters, which is greater than 7 authorized.(»½½Ø8«áµ©/
+m
+java:S1192£"ODefine a constant instead of duplicating this literal "File not found" 3 times.(¢³ÕÀ8«áµ©/
+F
+java:S1148¦"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8«áµ©/
+R
+java:S1144l"5Remove this unused private "setColumnMapping" method.(åË½©8«áµ©/
+Z	java:S107É"=Method has 10 parameters, which is greater than 7 authorized.(²¾¨8«áµ©/
+l	java:S116+"PRename this field "QUERY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á…©8³µØê­/
+l	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½À±88«áµ©/
+m	java:S116'"QRename this field "URL_DB" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é€àİ8³µØê­/
+Z	java:S107ª"=Method has 10 parameters, which is greater than 7 authorized.(ÅûÏ‚8«áµ©/
+F
+java:S1148ä"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8«áµ©/
+l	java:S117b"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½À±88«áµ©/
+>
+java:S1170+"!Make this final field static too.(á…©8³µØê­/

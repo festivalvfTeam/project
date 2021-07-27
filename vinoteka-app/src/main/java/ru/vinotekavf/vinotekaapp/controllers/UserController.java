@@ -1,8 +1,13 @@
 package ru.vinotekavf.vinotekaapp.controllers;
 
+import com.ibm.icu.text.Transliterator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +24,14 @@ import ru.vinotekavf.vinotekaapp.services.ProviderService;
 import ru.vinotekavf.vinotekaapp.services.UserService;
 import ru.vinotekavf.vinotekaapp.utils.ControllerUtils;
 import ru.vinotekavf.vinotekaapp.utils.FileUtils;
+import ru.vinotekavf.vinotekaapp.utils.MediaTypeUtils;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
 
@@ -39,6 +49,9 @@ public class UserController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @GetMapping("/login")
     public String login(){
@@ -97,14 +110,45 @@ public class UserController {
     }
 
     @GetMapping("/getPrice")
-    public String getPrice() throws IOException {
+    public ResponseEntity<ByteArrayResource> getPrice() throws IOException {
         FileUtils.writeAllToXLSXFile(providerService.getAllActive(), uploadPath);
-        return "redirect:/";
+
+        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, "Common price.xlsx");
+
+        Path path = Paths.get(uploadPath + "/Common price.xlsx");
+        byte[] data = Files.readAllBytes(path);
+        ByteArrayResource resource = new ByteArrayResource(data);
+
+        return ResponseEntity.ok()
+            // Content-Disposition
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + path.getFileName().toString())
+            // Content-Type
+            .contentType(mediaType) //
+            // Content-Lengh
+            .contentLength(data.length) //
+            .body(resource);
     }
 
-    @GetMapping("/providers/upload/{provider}")
-    public String getProviderFile(@PathVariable Provider provider) throws IOException {
+    @GetMapping("/providers/download/{provider}")
+    public ResponseEntity<ByteArrayResource> downloadProviderFile(@PathVariable Provider provider) throws IOException {
+
         FileUtils.writeSingleToXLSXFile(providerService.getProviderById(provider.getId()), uploadPath);
-        return "redirect:/";
+
+        Transliterator toLatinTrans = Transliterator.getInstance("Cyrillic-Latin");
+
+        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext,toLatinTrans.transliterate(provider.getName()) + ".xlsx");
+
+        Path path = Paths.get(uploadPath + "/" + toLatinTrans.transliterate(provider.getName()) + ".xlsx");
+        byte[] data = Files.readAllBytes(path);
+        ByteArrayResource resource = new ByteArrayResource(data);
+
+        return ResponseEntity.ok()
+            // Content-Disposition
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + path.getFileName().toString())
+            // Content-Type
+            .contentType(mediaType) //
+            // Content-Lengh
+            .contentLength(data.length) //
+            .body(resource);
     }
 }

@@ -43,7 +43,7 @@
             <td><a class="s8" th:href="@{/providers/{id}(id = ${provider.id})}"> <span th:text="${provider.name}"/></a></td>
             <td><a class="btn btn-primary" role="button" th:href="@{/providers/{id}(id = ${provider.id})}">Добавить файл с позициями</a></td>
             <td><a class="btn btn-primary" role="button" th:href="@{/providers/allPositions/{id}(id = ${provider.id})}">Просмотреть все позиции поставщика</a></td>
-            <td><a class="btn btn-primary" role="button" th:href="@{/providers/upload/{id}(id = ${provider.id})}">Выгрузить в файл</a></td>
+            <td><a class="btn btn-primary" role="button" th:href="@{/providers/download/{id}(id = ${provider.id})}">Выгрузить в файл</a></td>
             <form th:action="@{/providers/changeStatus}" method="post">
                 <input type="hidden" name="providerId" th:value="${provider.id}">
                 <td><button type="submit" class="btn btn-primary">В корзину</button></td>

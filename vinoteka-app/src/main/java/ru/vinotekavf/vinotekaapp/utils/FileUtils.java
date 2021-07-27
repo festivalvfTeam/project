@@ -1,5 +1,6 @@
 package ru.vinotekavf.vinotekaapp.utils;
 
+import com.ibm.icu.text.Transliterator;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -104,7 +105,7 @@ public class FileUtils {
     }
 
     public static void writeAllToXLSXFile(List<Provider> providers, String uploadPath) throws IOException {
-        File file = new File(uploadPath + "/Общий прайс.xlsx");
+        File file = new File(uploadPath + "/Common price.xlsx");
         file.getParentFile().mkdirs();
 
         XSSFWorkbook book = new XSSFWorkbook();
@@ -118,7 +119,8 @@ public class FileUtils {
     }
 
     public static void writeSingleToXLSXFile(Provider provider, String uploadPath) throws IOException {
-        File file = new File(uploadPath + "/" + provider.getName() + ".xlsx");
+        Transliterator toLatinTrans = Transliterator.getInstance("Cyrillic-Latin");
+        File file = new File(uploadPath + "/" + toLatinTrans.transliterate(provider.getName()) + ".xlsx");
         file.getParentFile().mkdirs();
 
         List<Provider> providers = new ArrayList<>();
