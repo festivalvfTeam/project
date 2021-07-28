@@ -65,3 +65,7 @@ Xvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/ProviderContro
 Nvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/utils/MediaTypeUtils.java,3\a\3a405480add1e90cff56997c94b9f15792eb0f47
 E
 vinoteka-app/Procfile,7\8\78bd1b6e5c758cb8a6854881204f6f6ea4db9394
+_
+/vinoteka-app/src/main/java/META-INF/MANIFEST.MF,2\2\22e6c8de44a6786c2bc30fae06c6f66a23b942af
+N
+vinoteka-app/system.properties,7\9\7925110f34ca46c6b3dc864b69219f3bb2677685

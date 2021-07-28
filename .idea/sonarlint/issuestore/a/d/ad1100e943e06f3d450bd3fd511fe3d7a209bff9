@@ -1,9 +1,9 @@
 
-t
-java:S3776/"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ŸÉî–ùÿÿÿÿ8£Ø•§/
-\
-java:S1118":Add a private constructor to hide the implicit public one.(Ó™€¸ÿÿÿÿÿ8° ñí­/
-C
-java:S1075{"&Remove this hard-coded path-delimiter.(•‡æû8§Úêñ­/
-o
-java:S3776M"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(á‹çË8³°Øê­/
+Z
+java:S1118":Add a private constructor to hide the implicit public one.(Ó™€¸ÿÿÿÿÿ8° ñí­/
+r
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ŸÉî–ùÿÿÿÿ8£Ø•§/
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(á‹çË8³°Øê­/
+A
+java:S1075"&Remove this hard-coded path-delimiter.(•‡æû8§Úêñ­/
