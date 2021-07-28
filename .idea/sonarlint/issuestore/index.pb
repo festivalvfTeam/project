@@ -63,3 +63,5 @@ Xvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/PositionContro
 Xvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/controllers/ProviderController.java,e\2\e2b01a8418956f52076435e54048007e439bbf0e
 ~
 Nvinoteka-app/src/main/java/ru/vinotekavf/vinotekaapp/utils/MediaTypeUtils.java,3\a\3a405480add1e90cff56997c94b9f15792eb0f47
+E
+vinoteka-app/Procfile,7\8\78bd1b6e5c758cb8a6854881204f6f6ea4db9394
